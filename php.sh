@@ -5,7 +5,7 @@ for VERSION in 5.2.12 5.3.1; do
 	V=$(echo $VERSION | sed -r 's/^([0-9]+\.[0-9]+).*$/\1/')
 	debra init /tmp/php-$$
 
-	if [ "$V" == "5.3" ]; then
+	if [ 5.3 = $V ]; then
 		MYSQL=""
 	else
 		MYSQL=", libmysqlclient16"
@@ -23,7 +23,7 @@ Description: Standalone PHP $VERSION.
 EOF
 
 	# Install PHP itself.
-	if [ "$V" == "5.3" ]; then
+	if [ 5.3 = $V ]; then
 		MYSQL="--with-mysql=mysqlnd --with-mysqli=mysqlnd"
 	else
 		MYSQL="--with-mysql --with-mysqli"
