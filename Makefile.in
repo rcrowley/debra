@@ -4,6 +4,7 @@ all:
 	@false
  
 install:
+	mkdir -p $(PREFIX)/bin
 	install -c bin/sourceinstall $(PREFIX)/bin/
 	install -c bin/debra $(PREFIX)/bin/
  
