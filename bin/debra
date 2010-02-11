@@ -1,10 +1,10 @@
 #!/bin/sh
 
 usage() {
-	echo "Usage: $(basename $0) init|destroy|sourceinstall|build|help [...]" >&2
+	echo "Usage: $(basename $0) create|destroy|sourceinstall|build|help [...]" >&2
 	if [ -n "$1" ]; then
-		echo "  init <dir> [<control>]" >&2
-		echo "    initialize a directory for building debs" >&2
+		echo "  create <dir> [<control>]" >&2
+		echo "    create a directory for building debs" >&2
 		echo "  destroy <dir>" >&2
 		echo "    remove a directory" >&2
 		echo "  sourceinstall <dir> <tarball-uri> [...]" >&2
@@ -26,8 +26,8 @@ DIRNAME=$(readlink -fn $DIRNAME)
 
 case $ACTION in
 
-	# Initialize a directory for building Debian packages.
-	init)
+	# Create a directory for building Debian packages.
+	create)
 		mkdir -p $DIRNAME/DEBIAN
 		if [ -f "$1" ]; then
 			cp $1 $DIRNAME/DEBIAN/control

@@ -3,9 +3,10 @@ debra(8)
 
 ## SYNOPSIS
 
-	debra init foo
+	debra create foo
 	debra sourceinstall foo http://example.com/package.tar.gz
 	debra build foo
+	debra destry foo
 
 ## DESCRIPTION
 
