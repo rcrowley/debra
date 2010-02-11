@@ -25,8 +25,7 @@ case $ACTION in
 
 	# Initialize a directory for building Debian packages.
 	init)
-		mkdir -p $DIRNAME
-		mkdir $DIRNAME/opt $DIRNAME/DEBIAN
+		mkdir -p $DIRNAME/DEBIAN
 		if [ -f $HOME/.debra ]; then
 			cp $HOME/.debra $DIRNAME/DEBIAN/control
 		else
