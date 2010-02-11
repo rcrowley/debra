@@ -1,0 +1,65 @@
+#!/bin/sh
+
+usage() {
+	echo "Usage: $(basename $0) <tarball-uri> <prefix>" >&2
+	echo "       [-f <flags>] [-c <command>] [-b <bootstrap>] [-h]" >&2
+	if [ -n "$1" ]; then
+		echo "  -f configure flags" >&2
+		echo "  -c command to run instead of configure && make && make install" >&2
+		echo "  -b bootstrap command to run before any others" >&2
+		echo "  -h show this help message" >&2
+	fi
+	exit 1
+}
+TARBALL=$1
+PREFIX=$2
+[ -z "$TARBALL" ] && usage
+[ -z "$PREFIX" ] && usage
+shift 2
+PREFIX=$PWD/$PREFIX
+while getopts f:c:b:h name; do
+	case "$name" in
+		f) FLAGS=$OPTARG;;
+		c) COMMAND=$OPTARG;;
+		b) BOOTSTRAP=$OPTARG;;
+		h) usage MOAR;;
+		*) usage;;
+	esac
+done
+
+# If the package is already installed, exit.
+[ -f $PREFIX/.sourceinstall ] && exit 0
+
+# Figure out which flag to pass to tar because it can't figure out the type
+# of an archive that comes on stdin.
+if echo $TARBALL | egrep \\.bz2; then
+	TARFLAG=j
+else
+	TARFLAG=z
+fi
+
+# Fetch and untar into a safe directory.
+mkdir /tmp/sourceinstall-$$
+cd /tmp/sourceinstall-$$
+wget -O - $TARBALL | tar x$TARFLAG
+cd *
+
+# Bootstrap, if requested.
+[ -n "$BOOTSTRAP" ] && eval "$BOOTSTRAP"
+
+# If no custom command was supplied, configure, make, and make install.
+# Otherwise, run the custom command.
+if [ -z "$COMMAND" ]; then
+	./configure $FLAGS --prefix=$PREFIX
+	make
+	make install
+else
+	eval "$COMMAND"
+fi
+
+# Remove the build files.
+cd /tmp
+rm -rf /tmp/sourceinstall-$$
+
+# Note for posterity where the source can be found.
+echo $TARBALL >>$PREFIX/.sourceinstall

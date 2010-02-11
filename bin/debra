@@ -1,0 +1,65 @@
+#!/bin/sh
+
+usage() {
+	echo "Usage: $(basename $0) init|sourceinstall|build|help [...]" >&2
+	if [ -n "$1" ]; then
+		echo "  init <dir>" >&2
+		echo "    initialize a directory for building debs" >&2
+		echo "  sourceinstall <dir> <tarball-uri> [...]" >&2
+		echo "    install a source package (sets the prefix automatically)" >&2
+		echo "  build <dir> <deb>" >&2
+		echo "    build a deb from a directory" >&2
+		echo "  help" >&2
+		echo "    show this help message" >&2
+	fi
+	exit 1
+}
+ACTION=$1
+DIRNAME=$2
+[ -z "$ACTION" ] && usage
+[ -z "$DIRNAME" ] && usage
+shift 2
+
+case $ACTION in
+
+	# Initialize a directory for building Debian packages.
+	init)
+		mkdir -p $DIRNAME
+		mkdir $DIRNAME/opt $DIRNAME/DEBIAN
+		if [ -f $HOME/.debra ]; then
+			cp $HOME/.debra $DIRNAME/DEBIAN/control
+		else
+			echo "Package: TODO\nVersion: TODO\nSection: TODO\nPriority: optional\nEssential: no\nArchitecture: TODO\nDepends: TODO\nPre-Depends: TODO\nRecommends: TODO\nSuggests: TODO\nConflicts: TODO\nReplaces: TODO\nProvides: TODO\nInstalled-Size: TODO\nMaintainer: TODO\nDescription: TODO" >> $DIRNAME/DEBIAN/control
+		fi
+		;;
+
+	# Install a source package.  This is an outside script but we're faking
+	# one of the arguments here.
+	sourceinstall)
+		TARBALL=$1
+		[ -z "$TARBALL" ] && usage MOAR
+		shift
+		PACKAGE=$(basename $TARBALL \
+			| sed 's/^\(.*\)\.\(tar\.\(bz2\|gz\)\|tgz\)$/\1/')
+		exec $0-sourceinstall $TARBALL $DIRNAME/opt/$PACKAGE $@
+		;;
+
+	# Build a Debian package from a directory.
+	build)
+		DEB=$1
+		[ -z "$DEB" ] && usage MOAR
+		shift
+		exec dpkg -b $DIRNAME $DEB
+		;;
+
+	# Show the detailed help message.
+	help)
+		usage MOAR
+		;;
+
+	# Dispatch actions in external scripts or fall back to the usage message.
+	*)
+		[ -x $0-$ACTION ] && exec $0-$ACTION $@
+		usage
+
+esac
