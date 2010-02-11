@@ -1,6 +1,9 @@
 ARCH=amd64
 PHP=http://us3.php.net/distributions
 
+apt-get install libssl-dev libreadline5-dev zlib1g-dev
+apt-get install libxml2-dev libexpat1-dev libcurl4-openssl-dev libicu-dev
+
 for VERSION in 5.2.12 5.3.1; do
 	V=$(echo $VERSION | sed -r 's/^([0-9]+\.[0-9]+).*$/\1/')
 	debra init /tmp/php-$$
@@ -9,6 +12,7 @@ for VERSION in 5.2.12 5.3.1; do
 		MYSQL=""
 	else
 		MYSQL=", libmysqlclient16"
+		apt-get install libmysqlclient16-dev
 	fi
 	cat <<EOF >/tmp/php-$$/DEBIAN/control
 Package: opt-php-$VERSION
