@@ -1,10 +1,12 @@
 #!/bin/sh
 
 usage() {
-	echo "Usage: $(basename $0) init|sourceinstall|build|help [...]" >&2
+	echo "Usage: $(basename $0) init|destroy|sourceinstall|build|help [...]" >&2
 	if [ -n "$1" ]; then
 		echo "  init <dir>" >&2
 		echo "    initialize a directory for building debs" >&2
+		echo "  destroy <dir>" >&2
+		echo "    remove a directory" >&2
 		echo "  sourceinstall <dir> <tarball-uri> [...]" >&2
 		echo "    install a source package (sets the prefix automatically)" >&2
 		echo "  build <dir> <deb>" >&2
@@ -49,6 +51,11 @@ Maintainer: TODO
 Description: TODO
 EOF
 		fi
+		;;
+
+	# Remove a directory.
+	destroy)
+		rm -rf $DIRNAME
 		;;
 
 	# Install a source package.
