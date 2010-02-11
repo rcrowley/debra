@@ -4,7 +4,17 @@ for VERSION in 1.8.7-p249 1.9.1-p378; do
 	V=$(echo $VERSION | sed -r 's/^([0-9]+\.[0-9]+).*$/\1/')
 	debra init /tmp/ruby-$$
 
-	echo "Package: opt-ruby-$VERSION\nVersion: $VERSION-1\nSection: devel\nPriority: optional\nEssential: no\nArchitecture: amd64\nDepends: libc6 libssl0.9.8 libreadline5 zlib1g\nMaintainer: Richard Crowley <r@rcrowley.org>\nDescription: Standalone Ruby $VERSION.  This installation includes RubyGems." >/tmp/ruby-$$/DEBIAN/control
+	cat <<EOF >/tmp/ruby-$$/DEBIAN/control
+Package: opt-ruby-$VERSION
+Version: $VERSION-1
+Section: devel
+Priority: optional
+Essential: no
+Architecture: amd64
+Depends: libc6, libssl0.9.8, libreadline5, zlib1g
+Maintainer: Richard Crowley <r@rcrowley.org>
+Description: Standalone Ruby $VERSION.  This installation includes RubyGems.
+EOF
 
 	# Install Ruby itself.
 	debra sourceinstall /tmp/ruby-$$ \

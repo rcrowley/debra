@@ -6,7 +6,17 @@ for VERSION in 2.5.5 2.6.4 3.1.1; do
 	V=$(echo $VERSION | sed -r 's/^([0-9]+\.[0-9]+).*$/\1/')
 	debra init /tmp/python-$$
 
-	echo "Package: opt-python-$VERSION\nVersion: $VERSION-1\nSection: devel\nPriority: optional\nEssential: no\nArchitecture: amd64\nDepends: libc6 libssl0.9.8 libreadline5 zlib1g\nMaintainer: Richard Crowley <r@rcrowley.org>\nDescription: Standalone Python $VERSION.  This installation includes the setuptools and pip packages from PyPI." >/tmp/python-$$/DEBIAN/control
+	cat <<EOF >/tmp/python-$$/DEBIAN/control
+Package: opt-python-$VERSION
+Version: $VERSION-1
+Section: devel
+Priority: optional
+Essential: no
+Architecture: amd64
+Depends: libc6, libssl0.9.8, libreadline5, zlib1g
+Maintainer: Richard Crowley <r@rcrowley.org>
+Description: Standalone Python $VERSION.  This installation includes the setuptools and pip packages from PyPI.
+EOF
 
 	# Install Python itself.
 	debra sourceinstall /tmp/python-$$ \

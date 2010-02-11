@@ -29,7 +29,24 @@ case $ACTION in
 		if [ -f $HOME/.debra ]; then
 			cp $HOME/.debra $DIRNAME/DEBIAN/control
 		else
-			echo "Package: TODO\nVersion: TODO\nSection: TODO\nPriority: optional\nEssential: no\nArchitecture: TODO\nDepends: TODO\nPre-Depends: TODO\nRecommends: TODO\nSuggests: TODO\nConflicts: TODO\nReplaces: TODO\nProvides: TODO\nInstalled-Size: TODO\nMaintainer: TODO\nDescription: TODO" >>$DIRNAME/DEBIAN/control
+			cat <<EOF >$DIRNAME/DEBIAN/control
+Package: TODO
+Version: TODO
+Section: TODO
+Priority: optional
+Essential: no
+Architecture: TODO
+Depends: TODO
+Pre-Depends: TODO
+Recommends: TODO
+Suggests: TODO
+Conflicts: TODO
+Replaces: TODO
+Provides: TODO
+Installed-Size: TODO
+Maintainer: TODO
+Description: TODO
+EOF
 		fi
 		;;
 
