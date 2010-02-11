@@ -2,7 +2,7 @@ ARCH=amd64
 PYTHON=http://python.org/ftp/python
 PYPI=http://pypi.python.org/packages
 
-apt-get install libssl-dev libreadline5-dev zlib1g-dev
+apt-get -y install libssl-dev libreadline5-dev zlib1g-dev
 
 for VERSION in 2.5.5 2.6.4 3.1.1; do
 	V=$(echo $VERSION | sed -r 's/^([0-9]+\.[0-9]+).*$/\1/')

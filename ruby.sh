@@ -2,7 +2,7 @@ ARCH=amd64
 RUBY=ftp://ftp.ruby-lang.org/pub/ruby
 RUBYFORGE=http://rubyforge.org/frs/download.php
 
-apt-get install libssl-dev libreadline5-dev zlib1g-dev
+apt-get -y install libssl-dev libreadline5-dev zlib1g-dev
 
 for VERSION in 1.8.7-p249 1.9.1-p378; do
 	V=$(echo $VERSION | sed -r 's/^([0-9]+\.[0-9]+).*$/\1/')
