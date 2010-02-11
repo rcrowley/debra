@@ -29,19 +29,18 @@ case $ACTION in
 		if [ -f $HOME/.debra ]; then
 			cp $HOME/.debra $DIRNAME/DEBIAN/control
 		else
-			echo "Package: TODO\nVersion: TODO\nSection: TODO\nPriority: optional\nEssential: no\nArchitecture: TODO\nDepends: TODO\nPre-Depends: TODO\nRecommends: TODO\nSuggests: TODO\nConflicts: TODO\nReplaces: TODO\nProvides: TODO\nInstalled-Size: TODO\nMaintainer: TODO\nDescription: TODO" >> $DIRNAME/DEBIAN/control
+			echo "Package: TODO\nVersion: TODO\nSection: TODO\nPriority: optional\nEssential: no\nArchitecture: TODO\nDepends: TODO\nPre-Depends: TODO\nRecommends: TODO\nSuggests: TODO\nConflicts: TODO\nReplaces: TODO\nProvides: TODO\nInstalled-Size: TODO\nMaintainer: TODO\nDescription: TODO" >>$DIRNAME/DEBIAN/control
 		fi
 		;;
 
-	# Install a source package.  This is an outside script but we're faking
-	# one of the arguments here.
+	# Install a source package.
 	sourceinstall)
 		TARBALL=$1
 		[ -z "$TARBALL" ] && usage MOAR
 		shift
-		PACKAGE=$(basename $TARBALL \
-			| sed 's/^\(.*\)\.\(tar\.\(bz2\|gz\)\|tgz\)$/\1/')
-		exec $0-sourceinstall $TARBALL $DIRNAME/opt/$PACKAGE $@
+		PACKAGE=$(basename "$TARBALL" \
+			| sed -r 's/^(.+)\.(tar\.(bz2|gz)|tgz)$/\1/')
+		exec $(dirname $0)/sourceinstall $DIRNAME/opt/$PACKAGE "$TARBALL" $@
 		;;
 
 	# Build a Debian package from a directory.
