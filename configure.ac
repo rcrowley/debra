@@ -5,8 +5,6 @@ AC_PREREQ([2.64])
 AC_INIT([debra], [0.1.0], [r@rcrowley.org])
 
 # Checks for programs.
-#AC_PROG_INSTALL
-AC_PROG_MAKE_SET
 
 # Checks for libraries.
 
