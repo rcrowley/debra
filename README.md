@@ -22,6 +22,7 @@ Richard Crowley <r@rcrowley.org>
 
 ## SEE ALSO
 
+* <http://github.com/relreso/debra>
 * <http://tldp.org/HOWTO/Debian-Binary-Package-Building-HOWTO/>
 
 ## THEME SONG
