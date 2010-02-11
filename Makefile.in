@@ -1,7 +1,7 @@
-PREFIX=/usr/local
- 
+PREFIX=@prefix@
+
 all:
-	@echo "Nothing to do, maybe you wanted to make install?" >&2
+	@echo "[debra] nothing to do, maybe you wanted to make install?" >&2
  
 install:
 	install -c bin/sourceinstall $(PREFIX)/bin/
