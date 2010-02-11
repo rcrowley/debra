@@ -1,7 +1,7 @@
 PREFIX=@prefix@
 
 all:
-	@false
+	@true
  
 install:
 	mkdir -p $(PREFIX)/bin
