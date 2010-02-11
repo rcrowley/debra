@@ -4,6 +4,6 @@ Section: devel
 Priority: optional
 Essential: no
 Architecture: all
-Depends: bash, coreutils, dpkg, grep, reprepro, sed, wget
+Depends: bash, coreutils, dpkg, grep, sed, wget
 Maintainer: Richard Crowley <r@rcrowley.org>
 Description: Tools for building Debian packages.
