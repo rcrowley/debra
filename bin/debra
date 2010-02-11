@@ -19,6 +19,7 @@ DIRNAME=$2
 [ -z "$ACTION" ] && usage
 [ -z "$DIRNAME" ] && usage
 shift 2
+mkdir -p $DIRNAME
 DIRNAME=$(readlink -fn $DIRNAME)
 
 case $ACTION in

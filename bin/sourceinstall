@@ -16,6 +16,7 @@ TARBALL=$2
 [ -z "$PREFIX" ] && usage
 [ -z "$TARBALL" ] && usage
 shift 2
+mkdir -p $PREFIX
 PREFIX=$(readlink -fn $PREFIX)
 while getopts f:c:b:h name; do
 	case "$name" in
