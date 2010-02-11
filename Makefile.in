@@ -1,7 +1,7 @@
 PREFIX=@prefix@
 
 all:
-	@echo "[debra] nothing to do, maybe you wanted to make install?" >&2
+	@false
  
 install:
 	install -c bin/sourceinstall $(PREFIX)/bin/
