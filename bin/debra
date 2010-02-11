@@ -3,7 +3,7 @@
 usage() {
 	echo "Usage: $(basename $0) init|destroy|sourceinstall|build|help [...]" >&2
 	if [ -n "$1" ]; then
-		echo "  init <dir>" >&2
+		echo "  init <dir> [<control>]" >&2
 		echo "    initialize a directory for building debs" >&2
 		echo "  destroy <dir>" >&2
 		echo "    remove a directory" >&2
@@ -29,10 +29,13 @@ case $ACTION in
 	# Initialize a directory for building Debian packages.
 	init)
 		mkdir -p $DIRNAME/DEBIAN
-		if [ -f $HOME/.debra ]; then
-			cp $HOME/.debra $DIRNAME/DEBIAN/control
+		if [ -f "$1" ]; then
+			cp $1 $DIRNAME/DEBIAN/control
 		else
-			cat <<EOF >$DIRNAME/DEBIAN/control
+			if [ -f $HOME/.debra ]; then
+				cp $HOME/.debra $DIRNAME/DEBIAN/control
+			else
+				cat <<EOF >$DIRNAME/DEBIAN/control
 Package: TODO
 Version: TODO
 Section: TODO
@@ -50,6 +53,7 @@ Installed-Size: TODO
 Maintainer: TODO
 Description: TODO
 EOF
+			fi
 		fi
 		;;
 
