@@ -1,0 +1,9 @@
+Package: debra
+Version: 0.1.0
+Section: devel
+Priority: optional
+Essential: no
+Architecture: all
+Depends: bash, coreutils, dpkg, grep, reprepro, sed, wget
+Maintainer: Richard Crowley <r@rcrowley.org>
+Description: Tools for building Debian packages.
