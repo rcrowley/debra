@@ -40,7 +40,7 @@ case $ACTION in
 		shift
 		PACKAGE=$(basename "$TARBALL" \
 			| sed -r 's/^(.+)\.(tar\.(bz2|gz)|tgz)$/\1/')
-		exec $(dirname $0)/sourceinstall $DIRNAME/opt/$PACKAGE "$TARBALL" $@
+		exec $(dirname $0)/sourceinstall $DIRNAME/opt/$PACKAGE "$TARBALL" "$@"
 		;;
 
 	# Build a Debian package from a directory.
