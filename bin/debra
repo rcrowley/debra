@@ -19,6 +19,7 @@ DIRNAME=$2
 [ -z "$ACTION" ] && usage
 [ -z "$DIRNAME" ] && usage
 shift 2
+DIRNAME=$(readlink -fn $DIRNAME)
 
 case $ACTION in
 
@@ -60,11 +61,17 @@ EOF
 		exec $(dirname $0)/sourceinstall $DIRNAME/opt/$PACKAGE "$TARBALL" "$@"
 		;;
 
-	# Build a Debian package from a directory.
+	# Build a Debian package from a directory.  Fix incorrect paths (mostly
+	# in shebang lines) before running `dpkg`.
 	build)
 		DEB=$1
 		[ -z "$DEB" ] && usage MOAR
 		shift
+		for PATHNAME in $(grep -rlI $DIRNAME $DIRNAME); do
+			mv $PATHNAME $PATHNAME.sav
+			sed s/\\/tmp\\/ruby-$$// <$PATHNAME.sav >$PATHNAME
+			rm $PATHNAME.sav
+		done
 		exec dpkg -b $DIRNAME $DEB
 		;;
 

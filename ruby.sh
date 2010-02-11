@@ -29,14 +29,6 @@ EOF
 		$RUBYFORGE/60718/rubygems-1.3.5.tgz \
 		-c "/tmp/ruby-$$/opt/ruby-$VERSION/bin/ruby setup.rb"
 
-	# Replace path to the temporary home of this Python interpreter with
-	# the path where it will be installed.
-	for PATHNAME in $(grep -rlI /tmp/ruby-$$ /tmp/ruby-$$); do
-		mv $PATHNAME $PATHNAME.sav
-		sed s/\\/tmp\\/ruby-$$// <$PATHNAME.sav >$PATHNAME
-		rm $PATHNAME.sav
-	done
-
 	# Build and push a Debian package.
 	debra build /tmp/ruby-$$ opt-ruby-${VERSION}_${VERSION}-1_$ARCH.deb
 	reprepro --basedir=/var/packages/ubuntu includedeb karmic \

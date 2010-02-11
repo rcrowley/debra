@@ -37,14 +37,6 @@ EOF
 			-c "/tmp/python-$$/opt/Python-$VERSION/bin/python setup.py install"
 	fi
 
-	# Replace path to the temporary home of this Python interpreter with
-	# the path where it will be installed.
-	for PATHNAME in $(grep -rlI /tmp/python-$$ /tmp/python-$$); do
-		mv $PATHNAME $PATHNAME.sav
-		sed s/\\/tmp\\/python-$$// <$PATHNAME.sav >$PATHNAME
-		rm $PATHNAME.sav
-	done
-
 	# Build and push a Debian package.
 	debra build /tmp/python-$$ opt-python-${VERSION}_${VERSION}-1_$ARCH.deb
 	reprepro --basedir=/var/packages/ubuntu includedeb karmic \
