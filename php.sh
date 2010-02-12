@@ -5,8 +5,10 @@ apt-get -y install libssl-dev libreadline5-dev zlib1g-dev
 apt-get -y install libxml2-dev libexpat1-dev libcurl4-openssl-dev libicu-dev
 
 for VERSION in 5.2.12 5.3.1; do
+	PREFIX=/tmp/php-$VERSION-$$
 	V=$(echo $VERSION | sed -r 's/^([0-9]+\.[0-9]+).*$/\1/')
-	debra create /tmp/php-$$
+
+	debra create $PREFIX
 
 	if [ 5.3 = $V ]; then
 		MYSQL=""
@@ -14,7 +16,7 @@ for VERSION in 5.2.12 5.3.1; do
 		MYSQL=", libmysqlclient16"
 		apt-get -y install libmysqlclient16-dev
 	fi
-	cat <<EOF >/tmp/php-$$/DEBIAN/control
+	cat <<EOF >$PREFIX/DEBIAN/control
 Package: opt-php-$VERSION
 Version: $VERSION-1
 Section: devel
@@ -32,13 +34,12 @@ EOF
 	else
 		MYSQL="--with-mysql --with-mysqli"
 	fi
-	debra sourceinstall /tmp/php-$$ $PHP/php-$VERSION.tar.bz2 \
+	debra sourceinstall $PREFIX $PHP/php-$VERSION.tar.bz2 \
 		-f "--enable-cli --enable-cgi --enable-fastcgi --with-openssl --with-curl --with-zlib $MYSQL --enable-pdo --with-pdo-mysql --enable-pcntl --enable-sqlite-utf8 --with-libxml-dir=/usr --with-pear"
 
-	# Build and push a Debian package.
-	debra build /tmp/php-$$ opt-php-${VERSION}_${VERSION}-1_$ARCH.deb
-	reprepro --basedir=/var/packages/ubuntu includedeb karmic \
+	# Build a Debian package.
+	debra build $PREFIX \
 		opt-php-${VERSION}_${VERSION}-1_$ARCH.deb
 
-	rm -rf /tmp/php-$$
+	rm -rf $PREFIX
 done

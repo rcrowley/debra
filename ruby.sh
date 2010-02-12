@@ -5,10 +5,12 @@ RUBYFORGE=http://rubyforge.org/frs/download.php
 apt-get -y install libssl-dev libreadline5-dev zlib1g-dev
 
 for VERSION in 1.8.7-p249 1.9.1-p378; do
+	PREFIX=/tmp/ruby-$VERSION-$$
 	V=$(echo $VERSION | sed -r 's/^([0-9]+\.[0-9]+).*$/\1/')
-	debra create /tmp/ruby-$$
 
-	cat <<EOF >/tmp/ruby-$$/DEBIAN/control
+	debra create $PREFIX
+
+	cat <<EOF >$PREFIX/DEBIAN/control
 Package: opt-ruby-$VERSION
 Version: $VERSION-1
 Section: devel
@@ -21,18 +23,16 @@ Description: Standalone Ruby $VERSION.  This installation includes RubyGems.
 EOF
 
 	# Install Ruby itself.
-	debra sourceinstall /tmp/ruby-$$ $RUBY/$V/ruby-$VERSION.tar.gz \
+	debra sourceinstall $PREFIX $RUBY/$V/ruby-$VERSION.tar.gz \
 		-b "sh -c 'echo fcntl\\\nopenssl\\\nreadline\\\nzlib >ext/Setup'"
 
 	# Install RubyGems.
-	sourceinstall /tmp/python-$$/opt/ruby-$VERSION \
+	sourceinstall $PREFIX/opt/ruby-$VERSION \
 		$RUBYFORGE/60718/rubygems-1.3.5.tgz \
-		-c "/tmp/ruby-$$/opt/ruby-$VERSION/bin/ruby setup.rb"
+		-c "$PREFIX/opt/ruby-$VERSION/bin/ruby setup.rb"
 
-	# Build and push a Debian package.
-	debra build /tmp/ruby-$$ opt-ruby-${VERSION}_${VERSION}-1_$ARCH.deb
-	reprepro --basedir=/var/packages/ubuntu includedeb karmic \
-		opt-ruby-${VERSION}_${VERSION}-1_$ARCH.deb
+	# Build a Debian package.
+	debra build $PREFIX opt-ruby-${VERSION}_${VERSION}-1_$ARCH.deb
 
-	rm -rf /tmp/ruby-$$
+	rm -rf $PREFIX
 done
