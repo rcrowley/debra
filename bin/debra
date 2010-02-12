@@ -68,14 +68,16 @@ EOF
 		;;
 
 	# Build a Debian package from a directory.  Fix incorrect paths (mostly
-	# in shebang lines) before running `dpkg`.
+	# in shebang lines) before running `dpkg`.  Files are copied aside rather
+	# than moved to preserve their permissions.
 	build)
 		DEB=$1
 		[ -z "$DEB" ] && usage MOAR
 		shift
 		for PATHNAME in $(grep -rlI $DIRNAME $DIRNAME); do
-			mv $PATHNAME $PATHNAME.sav
-			sed s/\\/tmp\\/ruby-$$// <$PATHNAME.sav >$PATHNAME
+			cp $PATHNAME $PATHNAME.sav
+			sed s/$(echo $DIRNAME | sed 's/\//\\\//g')//g \
+				<$PATHNAME.sav >$PATHNAME
 			rm $PATHNAME.sav
 		done
 		exec dpkg -b $DIRNAME $DEB
