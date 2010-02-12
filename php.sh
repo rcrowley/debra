@@ -6,7 +6,7 @@ apt-get -y install libxml2-dev libexpat1-dev libcurl4-openssl-dev libicu-dev
 
 for VERSION in 5.2.12 5.3.1; do
 	V=$(echo $VERSION | sed -r 's/^([0-9]+\.[0-9]+).*$/\1/')
-	debra init /tmp/php-$$
+	debra create /tmp/php-$$
 
 	if [ 5.3 = $V ]; then
 		MYSQL=""

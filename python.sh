@@ -6,7 +6,7 @@ apt-get -y install libssl-dev libreadline5-dev zlib1g-dev
 
 for VERSION in 2.5.5 2.6.4 3.1.1; do
 	V=$(echo $VERSION | sed -r 's/^([0-9]+\.[0-9]+).*$/\1/')
-	debra init /tmp/python-$$
+	debra create /tmp/python-$$
 
 	cat <<EOF >/tmp/python-$$/DEBIAN/control
 Package: opt-python-$VERSION
