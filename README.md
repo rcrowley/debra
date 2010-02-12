@@ -12,6 +12,16 @@ debra(8)
 
 Debra is for building Debian packages.
 
+Debra can build a Debian package for itself like so:
+
+	git archive --prefix=debra-0.1.0/ HEAD | gzip >/var/www/static/debra-0.1.0.tar.gz
+	export PATH=bin:$PATH
+	debra create foo control
+	sourceinstall foo/usr/local http://static.rmilitia.com/debra-0.1.0.tar.gz
+	debra build foo debra_0.1.0-1_all.deb
+	debra destroy foo
+	relreso -b /var/packages/ubuntu includedeb karmic debra_0.1.0-1_all.deb
+
 ## FILES
 
 * `$HOME/.debra`:
