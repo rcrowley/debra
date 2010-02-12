@@ -21,6 +21,8 @@ Debra can build a Debian package for itself like so:
 	debra build foo debra_0.1.0-1_all.deb
 	debra destroy foo
 	relreso -b /var/packages/ubuntu includedeb karmic debra_0.1.0-1_all.deb
+	apt-get update
+	apt-get install debra
 
 ## FILES
 
