@@ -5,12 +5,12 @@ PYPI=http://pypi.python.org/packages
 apt-get -y install libssl-dev libreadline5-dev zlib1g-dev
 
 for VERSION in 2.5.5 2.6.4 3.1.1; do
-	PREFIX=/tmp/python-$VERSION-$$
+	DESTDIR=/tmp/python-$VERSION-$$
 	V=$(echo $VERSION | sed -r 's/^([0-9]+\.[0-9]+).*$/\1/')
 
-	debra create $PREFIX
+	debra create $DESTDIR
 
-	cat <<EOF >$PREFIX/DEBIAN/control
+	cat <<EOF >$DESTDIR/DEBIAN/control
 Package: opt-python-$VERSION
 Version: $VERSION-1
 Section: devel
@@ -23,25 +23,24 @@ Description: Standalone Python $VERSION.  This installation includes the setupto
 EOF
 
 	# Install Python itself.
-	debra sourceinstall $PREFIX \
+	debra sourceinstall $DESTDIR \
 		$PYTHON/$VERSION/Python-$VERSION.tar.bz2
 
 	# Install setuptools and pip unless this is Python 3000, which still
 	# hasn't gotten any love.
 	if echo $VERSION | egrep '^2' >/dev/null; then
-		(cd $PREFIX && wget \
+		(cd $DESTDIR && wget \
 			$PYPI/$V/s/setuptools/setuptools-0.6c11-py$V.egg)
-		PATH="$PREFIX/opt/Python-$VERSION/bin:$PATH" sh \
-			$PREFIX/setuptools-0.6c11-py$V.egg \
-			--prefix=$PREFIX/opt/Python-$VERSION
-		rm $PREFIX/setuptools-0.6c11-py$V.egg
-		sourceinstall $PREFIX/opt/Python-$VERSION \
-			$PYPI/source/p/pip/pip-0.6.2.tar.gz \
-			-c "$PREFIX/opt/Python-$VERSION/bin/python setup.py install"
+		PATH="$DESTDIR/opt/Python-$VERSION/bin:$PATH" sh \
+			$DESTDIR/setuptools-0.6c11-py$V.egg \
+			--prefix=$DESTDIR/opt/Python-$VERSION
+		rm $DESTDIR/setuptools-0.6c11-py$V.egg
+		sourceinstall $PYPI/source/p/pip/pip-0.6.2.tar.gz \
+			-c "$DESTDIR/opt/Python-$VERSION/bin/python setup.py install"
 	fi
 
 	# Build a Debian package.
-	debra build $PREFIX opt-python-${VERSION}_${VERSION}-1_$ARCH.deb
+	debra build $DESTDIR opt-python-${VERSION}_${VERSION}-1_$ARCH.deb
 
-	rm -rf $PREFIX
+	rm -rf $DESTDIR
 done

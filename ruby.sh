@@ -24,8 +24,7 @@ EOF
 
 	# Install Ruby itself.
 	debra sourceinstall $DESTDIR $RUBY/$V/ruby-$VERSION.tar.gz \
-		-b "sh -c 'echo fcntl\\\nopenssl\\\nreadline\\\nzlib >ext/Setup'" \
-		-p /opt/ruby-$VERSION
+		-b "sh -c 'echo fcntl\\\nopenssl\\\nreadline\\\nzlib >ext/Setup'"
 
 	# Install RubyGems.
 	sourceinstall $RUBYFORGE/60718/rubygems-1.3.5.tgz \
@@ -34,5 +33,5 @@ EOF
 	# Build a Debian package.
 	debra build $DESTDIR opt-ruby-${VERSION}_${VERSION}-1_$ARCH.deb
 
-	#rm -rf $PREFIX
+	rm -rf $DESTDIR
 done
