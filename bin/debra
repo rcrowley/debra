@@ -64,7 +64,8 @@ EOF
 		shift
 		PACKAGE=$(basename "$TARBALL" \
 			| sed -r 's/^(.+)\.(tar\.(bz2|gz)|tgz)$/\1/')
-		exec $(dirname $0)/sourceinstall $DIRNAME/opt/$PACKAGE "$TARBALL" "$@"
+		exec $(dirname $0)/sourceinstall "$TARBALL" "$@" \
+			-p /opt/$PACKAGE -d $DIRNAME
 		;;
 
 	# Build a Debian package from a directory.  Fix incorrect paths (mostly

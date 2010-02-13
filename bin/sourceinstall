@@ -1,35 +1,38 @@
 #!/bin/sh
 
 usage() {
-	echo "Usage: $(basename $0) <prefix> <tarball-uri>" >&2
-	echo "       [-f <flags>] [-c <command>] [-b <bootstrap>] [-h]" >&2
+	echo "Usage: $(basename $0) <tarball-uri>" >&2
+	echo "       [-b <bootstrap>]" >&2
+	echo "       [-f <flags>] [-p <prefix>] [-d <destdir>]" >&2
+	echo "       [-c <command>] [-h]" >&2
 	if [ -n "$1" ]; then
-		echo "  -f configure flags" >&2
-		echo "  -c command to run instead of configure && make && make install" >&2
 		echo "  -b bootstrap command to run before any others" >&2
+		echo "  -f flags passed to configure" >&2
+		echo "  -p prefix passed to configure (after other flags)" >&2
+		echo "  -d destination directory passed to make as DESTDIR" >&2
+		echo "  -c command to run instead of configure && make && make install" >&2
 		echo "  -h show this help message" >&2
 	fi
 	exit 1
 }
-PREFIX=$1
-TARBALL=$2
-[ -z "$PREFIX" ] && usage
+TARBALL=$1
 [ -z "$TARBALL" ] && usage
-shift 2
-mkdir -p $PREFIX
-PREFIX=$(readlink -fn $PREFIX)
-while getopts f:c:b:h name; do
+shift
+while getopts b:f:p:c:d:h name; do
 	case "$name" in
-		f) FLAGS=$OPTARG;;
-		c) COMMAND=$OPTARG;;
 		b) BOOTSTRAP=$OPTARG;;
+		f) FLAGS=$OPTARG;;
+		p) PREFIX=$OPTARG;;
+		d) DESTDIR=$OPTARG;;
+		c) COMMAND=$OPTARG;;
 		h) usage MOAR;;
 		*) usage;;
 	esac
 done
 
 # If the package is already installed, exit.
-grep "$TARBALL" $PREFIX/.sourceinstall >/dev/null 2>/dev/null && exit 0
+# FIXME
+#grep "$TARBALL" $PREFIX/.sourceinstall >/dev/null 2>/dev/null && exit 0
 
 # Figure out which flag to pass to tar because it can't figure out the type
 # of an archive that comes on stdin.
@@ -51,9 +54,17 @@ cd *
 # If no custom command was supplied, configure, make, and make install.
 # Otherwise, run the custom command.
 if [ -z "$COMMAND" ]; then
-	./configure $FLAGS --prefix=$PREFIX
+	if [ -z "$PREFIX" ]; then
+		./configure $FLAGS
+	else
+		./configure $FLAGS --prefix=$(readlink $PREFIX)
+	fi
 	make
-	make install
+	if [ -z "$DESTDIR" ]; then
+		make install
+	else
+		make install DESTDIR=$DESTDIR
+	fi
 else
 	eval $COMMAND
 fi
