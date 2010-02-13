@@ -60,6 +60,7 @@ if [ -z "$COMMAND" ]; then
 	else
 		./configure $FLAGS --prefix=$(readlink -f $PREFIX)
 	fi
+cat Makefile
 	make
 	if [ -z "$DESTDIR" ]; then
 		make install
