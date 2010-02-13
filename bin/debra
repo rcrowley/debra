@@ -6,11 +6,11 @@ usage() {
 		echo "  create <dir> [<control>]" >&2
 		echo "    create a directory for building debs" >&2
 		echo "  sourceinstall <dir> <tarball-uri> [...]" >&2
-		echo "    install a source package (sets the prefix automatically)" >&2
+		echo "    install a source package into the directory for building debs" >&2
 		echo "  build <dir> <deb>" >&2
-		echo "    build a deb from a directory" >&2
+		echo "    build a deb from a directory for building debs" >&2
 		echo "  destroy <dir>" >&2
-		echo "    remove a directory" >&2
+		echo "    remove a directory for building debs" >&2
 		echo "  help" >&2
 		echo "    show this help message" >&2
 	fi
@@ -19,7 +19,12 @@ usage() {
 ACTION=$1
 DIRNAME=$2
 [ -z "$ACTION" ] && usage
-[ -z "$DIRNAME" ] && usage
+if [ -z "$DIRNAME" ]; then
+	case $ACTION in
+		help) usage MOAR;;
+		*) usage;;
+	esac
+fi
 shift 2
 mkdir -p $DIRNAME
 DIRNAME=$(readlink -fn $DIRNAME)
@@ -64,8 +69,8 @@ EOF
 		shift
 		PACKAGE=$(basename "$TARBALL" \
 			| sed -r 's/^(.+)\.(tar\.(bz2|gz)|tgz)$/\1/')
-		exec $(dirname $0)/sourceinstall "$TARBALL" "$@" \
-			-p /opt/$PACKAGE -d $DIRNAME
+		exec $(dirname $0)/sourceinstall "$TARBALL" \
+			-p /opt/$PACKAGE "$@" -d $DIRNAME
 		;;
 
 	# Build a Debian package from a directory.  Fix incorrect paths (mostly

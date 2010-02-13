@@ -17,6 +17,7 @@ usage() {
 }
 TARBALL=$1
 [ -z "$TARBALL" ] && usage
+[ -h = $TARBALL ] && usage MOAR
 shift
 while getopts b:f:p:c:d:h name; do
 	case "$name" in
@@ -57,7 +58,7 @@ if [ -z "$COMMAND" ]; then
 	if [ -z "$PREFIX" ]; then
 		./configure $FLAGS
 	else
-		./configure $FLAGS --prefix=$(readlink $PREFIX)
+		./configure $FLAGS --prefix=$(readlink -f $PREFIX)
 	fi
 	make
 	if [ -z "$DESTDIR" ]; then
