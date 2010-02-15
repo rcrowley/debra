@@ -28,7 +28,7 @@ EOF
 
 	# Install RubyGems.
 	sourceinstall $RUBYFORGE/60718/rubygems-1.3.5.tgz \
-		-c "$PREFIX/opt/ruby-$VERSION/bin/ruby setup.rb"
+		-c "$DESTDIR/opt/ruby-$VERSION/bin/ruby setup.rb"
 
 	# Build a Debian package.
 	debra build $DESTDIR opt-ruby-${VERSION}_${VERSION}-1_$ARCH.deb
