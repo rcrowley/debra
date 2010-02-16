@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.64])
-AC_INIT([debra], [0.1.0], [r@rcrowley.org])
+AC_INIT([debra], [0.1.1], [r@rcrowley.org])
 
 # Checks for programs.
 

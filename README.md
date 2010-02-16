@@ -14,13 +14,13 @@ Debra is for building Debian packages.
 
 Debra can build a Debian package for itself like so:
 
-	git archive --prefix=debra-0.1.0/ HEAD | gzip >/var/www/static/debra-0.1.0.tar.gz
+	git archive --prefix=debra-0.1.1/ v0.1.1 | gzip >/var/www/static/debra-0.1.1.tar.gz
 	export PATH=bin:$PATH
 	debra create foo control
-	debra sourceinstall foo http://static.rmilitia.com/debra-0.1.0.tar.gz -p /usr/local
-	debra build foo debra_0.1.0-1_all.deb
+	debra sourceinstall foo http://static.rmilitia.com/debra-0.1.1.tar.gz -p /usr/local
+	debra build foo debra_0.1.1-1_all.deb
 	debra destroy foo
-	reprepro -b /var/packages/ubuntu includedeb karmic debra_0.1.0-1_all.deb
+	reprepro -b /var/packages/ubuntu includedeb karmic debra_0.1.1-1_all.deb
 	apt-get update
 	apt-get install debra
 
