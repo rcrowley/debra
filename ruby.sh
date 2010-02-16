@@ -23,8 +23,13 @@ Description: Standalone Ruby $VERSION.  This installation includes RubyGems.
 EOF
 
 	# Install Ruby itself.
+	if [ 1.8 = $V ]; then
+		BOOTSTRAP="sh -c 'echo fcntl\\\nreadline\\\nzlib >ext/Setup'"
+	else
+		BOOTSTRAP="sh -c 'echo fcntl\\\nopenssl\\\nreadline\\\nzlib >ext/Setup'"
+	fi
 	debra sourceinstall $DESTDIR $RUBY/$V/ruby-$VERSION.tar.gz \
-		-b "sh -c 'echo fcntl\\\nopenssl\\\nreadline\\\nzlib >ext/Setup'"
+		-b "$BOOTSTRAP"
 
 	# Install RubyGems.
 	sourceinstall $RUBYFORGE/60718/rubygems-1.3.5.tgz \
