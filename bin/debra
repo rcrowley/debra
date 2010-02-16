@@ -60,7 +60,14 @@ Description: TODO
 EOF
 			fi
 		fi
-		touch $DIRNAME/DEBIAN/postinst $DIRNAME/DEBIAN/prerm
+		cat <<EOF >$DIRNAME/DEBIAN/postinst
+#!/bin/sh
+exit 0
+EOF
+		cat <<EOF >$DIRNAME/DEBIAN/prerm
+#!/bin/sh
+exit 0
+EOF
 		chmod 755 $DIRNAME/DEBIAN/postinst $DIRNAME/DEBIAN/prerm
 		;;
 
