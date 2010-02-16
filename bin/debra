@@ -75,19 +75,28 @@ EOF
 			-p /opt/$PACKAGE "$@" -d $DIRNAME
 		;;
 
-	# Build a Debian package from a directory.  Fix incorrect paths (mostly
-	# in shebang lines) before running `dpkg`.  Files are copied aside rather
-	# than moved to preserve their permissions.
+	# Build a Debian package from a directory.
 	build)
 		DEB=$1
 		[ -z "$DEB" ] && usage MOAR
 		shift
+
+		# Fix incorrect paths (mostly in shebang lines) before running
+		# `dpkg`.  Files are copied aside rather than moved to preserve
+		# their permissions.
 		for PATHNAME in $(grep -rlI $DIRNAME $DIRNAME); do
 			cp $PATHNAME $PATHNAME.sav
 			sed s/$(echo $DIRNAME | sed 's/\//\\\//g')//g \
 				<$PATHNAME.sav >$PATHNAME
 			rm $PATHNAME.sav
 		done
+
+		# Create DEBIAN/md5sums for inclusion in the package.
+		for PATHNAME in $(find $DIRNAME -type f -not -path $DIRNAME/DEBIAN/*)
+		do
+			md5sum $PATHNAME >>$DIRNAME/DEBIAN/md5sums
+		done
+
 		exec dpkg -b $DIRNAME $DEB
 		;;
 
