@@ -92,7 +92,7 @@ EOF
 		done
 
 		# Create DEBIAN/md5sums for inclusion in the package.
-		rm $DIRNAME/DEBIAN/md5sums
+		rm -f $DIRNAME/DEBIAN/md5sums
 		for PATHNAME in $(find $DIRNAME -type f -not -path $DIRNAME/DEBIAN/\*)
 		do
 			md5sum $PATHNAME >>$DIRNAME/DEBIAN/md5sums
