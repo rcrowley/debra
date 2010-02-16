@@ -75,4 +75,4 @@ cd /tmp
 rm -rf /tmp/sourceinstall-$$
 
 # Note for posterity where the source can be found.
-echo "$TARBALL" >>$PREFIX/.sourceinstall
+echo "$TARBALL" >>$DESTDIR/$PREFIX/.sourceinstall
