@@ -1,5 +1,5 @@
-debra(8)
-========
+debra(8) -- Debra is for building Debian packages
+=================================================
 
 ## SYNOPSIS
 
