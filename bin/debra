@@ -60,6 +60,8 @@ Description: TODO
 EOF
 			fi
 		fi
+		touch $DIRNAME/DEBIAN/postinst $DIRNAME/DEBIAN/prerm
+		chmod 755 $DIRNAME/DEBIAN/postinst $DIRNAME/DEBIAN/prerm
 		;;
 
 	# Install a source package.
