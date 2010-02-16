@@ -31,10 +31,6 @@ while getopts b:f:p:c:d:h name; do
 	esac
 done
 
-# If the package is already installed, exit.
-# FIXME
-#grep "$TARBALL" $PREFIX/.sourceinstall >/dev/null 2>/dev/null && exit 0
-
 # Figure out which flag to pass to tar because it can't figure out the type
 # of an archive that comes on stdin.
 if echo "$TARBALL" | egrep '\.bz2'; then
@@ -73,6 +69,3 @@ fi
 # Remove the build files.
 cd /tmp
 rm -rf /tmp/sourceinstall-$$
-
-# Note for posterity where the source can be found.
-echo "$TARBALL" >>$DESTDIR/$PREFIX/.sourceinstall
