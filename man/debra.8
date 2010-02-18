@@ -1,0 +1,70 @@
+.\" generated with Ron/v0.3
+.\" http://github.com/rtomayko/ron/
+.
+.TH "DEBRA" "8" "February 2010" "" ""
+.
+.SH "NAME"
+\fBdebra\fR \-\- for building Debian packages
+.
+.SH "SYNOPSIS"
+\fBdebra create \fIname\fR [\fIcontrol\fR]\fR
+.
+.br
+\fBdebra sourceinstall \fIname\fR \fItarball\-uri\fR [\fI...\fR]\fR
+.
+.br
+\fBdebra build \fIname\fR \fIdeb\fR\fR
+.
+.br
+\fBdebra destroy \fIname\fR\fR
+.
+.br
+.
+.SH "DESCRIPTION"
+Debra is for building Debian packages.  The \fBcreate\fR subcommand creates a directory for building Debian packages.  The \fBDEBIAN/control\fR file is initialized from the first applicable source: the file named by the next command line argument, \fB$HOME/.debra\fR, or an empty template.
+.
+.P
+It is left to the user to populate \fBDEBIAN/control\fR, \fBDEBIAN/postinst\fR, \fBDEBIAN/prerm\fR, and the fake filesystem presented by Debra.  \fBsourceinstall\fR(8) can assist in this process.  The \fBsourceinstall\fR subcommand calls \fBsourceinstall\fR(8) with all arguments passed by the user plus \fB\-d \fIname\fR\fR to set the \fBDESTDIR\fR argument to \fBmake install\fR automatically.
+.
+.P
+When the package is ready, the \fBbuild\fR subcommand creates a Debian package with the specified filename.  \fBDEBIAN/md5sums\fR is automatically populated with the hashes of each file that will be part of the archive.
+.
+.SH "EXAMPLES"
+Debra can build a Debian package for itself.  This example shows how you can use \fBreprepro\fR(1) to publish the newly\-built Debian package to a local Debian archive and install it through \fBapt\-get\fR(8).
+.
+.IP "" 4
+.
+.nf
+
+make deb
+reprepro \-b /var/packages/ubuntu includedeb karmic debra_0.1.1\-1_all.deb
+apt\-get update
+apt\-get install debra 
+.
+.fi
+.
+.IP "" 0
+.
+.P
+\fBmake deb\fR calls \fBgit\-archive\fR(1), \fBdebra create\fR, \fBdebra sourceinstall\fR, \fBdebra build\fR and \fBdebra destroy\fR.
+.
+.SH "FILES"
+.
+.TP
+\fB$HOME/.debra\fR
+The contents of \fB$HOME/.debra\fR will be used to initialize the \fBDEBIAN/control\fR file during the \fBcreate\fR action.
+.
+.SH "THEME SONG"
+Beck \- "Debra"
+.
+.SH "AUTHOR"
+Richard Crowley \fIr@rcrowley.org\fR
+.
+.SH "SEE ALSO"
+Debra's source code is available at \fIhttp://github.com/relreso/debra\fR.
+.
+.P
+\fBsourceinstall\fR(8) details options for installing source tarballs.
+.
+.P
+\fBreprepro\fR(1) plus your favorite HTTP server can together manage a Debian archive to serve the packages built by \fBdebra\fR(8).

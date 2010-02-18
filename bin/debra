@@ -3,13 +3,13 @@
 usage() {
 	echo "Usage: $(basename $0) create|sourceinstall|build|destroy|help [...]" >&2
 	if [ -n "$1" ]; then
-		echo "  create <dir> [<control>]" >&2
+		echo "  create <name> [<control>]" >&2
 		echo "    create a directory for building debs" >&2
-		echo "  sourceinstall <dir> <tarball-uri> [...]" >&2
+		echo "  sourceinstall <name> <tarball-uri> [...]" >&2
 		echo "    install a source package into the directory for building debs" >&2
-		echo "  build <dir> <deb>" >&2
+		echo "  build <name> <deb>" >&2
 		echo "    build a deb from a directory for building debs" >&2
-		echo "  destroy <dir>" >&2
+		echo "  destroy <name>" >&2
 		echo "    remove a directory for building debs" >&2
 		echo "  help" >&2
 		echo "    show this help message" >&2

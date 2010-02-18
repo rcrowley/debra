@@ -5,6 +5,7 @@ AC_PREREQ([2.64])
 AC_INIT([debra], [0.1.1], [r@rcrowley.org])
 
 # Checks for programs.
+AC_PATH_PROGS([ron], [ron], [], [$PATH:/var/lib/gems/1.8/bin])
 
 # Checks for libraries.
 
@@ -14,5 +15,5 @@ AC_INIT([debra], [0.1.1], [r@rcrowley.org])
 
 # Checks for library functions.
 
-AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([Makefile man/Makefile])
 AC_OUTPUT

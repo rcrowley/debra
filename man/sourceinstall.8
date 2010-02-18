@@ -1,0 +1,46 @@
+.\" generated with Ron/v0.3
+.\" http://github.com/rtomayko/ron/
+.
+.TH "SOURCEINSTALL" "8" "February 2010" "" ""
+.
+.SH "NAME"
+\fBsourceinstall\fR \-\- install from a source tarball URL
+.
+.SH "SYNOPSIS"
+\fBsourceinstall \fItarball\-uri\fR [\-b \fIbootstrap\fR] [\-f \fIflags\fR] [\-p \fIprefix\fR] [\-d \fIdestdir\fR] [\-c \fIcommand\fR] [\-h]  \fR
+.
+.SH "DESCRIPTION"
+TODO
+.
+.SH "OPTIONS"
+Options may be set multiple times.  In all cases, the last one wins.
+.
+.TP
+\fB\-b \fIbootstrap\fR\fR
+Command to run before beginning the \fB./configure\fR, \fBmake\fR, \fBmake install\fR sequence.  This command is run from the root of the extracted tarball.
+.
+.TP
+\fB\-f \fIflags\fR\fR
+Flags to be passed to \fB./configure\fR.
+.
+.TP
+\fB\-p \fIprefix\fR\fR
+Shortcut to the \fB\-\-prefix\fR flag to \fB./configure\fR.  If provided after \fB\-f\fR, this will override any \fB\-\-prefix\fR flag set there.
+.
+.TP
+\fB\-d \fIdestdir\fR\fR
+The directory to be passed as \fBDESTDIR\fR to \fBmake install\fR.
+.
+.TP
+\fB\-c \fIcommand\fR\fR
+A command to be run instead of the \fB\fIbootstrap\fR\fR, \fB./configure\fR, \fBmake\fR, \fBmake install\fR sequence.
+.
+.TP
+\fB\-h\fR
+Show a help message.
+.
+.SH "AUTHOR"
+Richard Crowley \fIr@rcrowley.org\fR
+.
+.SH "SEE ALSO"
+\fBsourceinstall\fR(8) is part of the Debra package.  Debra's source code is available at \fIhttp://github.com/relreso/debra\fR.
