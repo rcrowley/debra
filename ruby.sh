@@ -31,12 +31,32 @@ EOF
 	debra sourceinstall $DESTDIR $RUBY/$V/ruby-$VERSION.tar.gz \
 		-b "$BOOTSTRAP"
 
-	# Install RubyGems.
-	sourceinstall $RUBYFORGE/60718/rubygems-1.3.5.tgz \
-		-c "$DESTDIR/opt/ruby-$VERSION/bin/ruby setup.rb"
+	# Get set to install RubyGems from DEBIAN/postinst.
+	# FIXME The resulting package will be unable to uninstall itself.
+	mkdir $DESTDIR/tmp
+	(cd $DESTDIR/tmp && wget $RUBYFORGE/60718/rubygems-1.3.5.tgz)
+	cat <<EOF >$DESTDIR/DEBIAN/postinst
+#!/bin/sh
+case "\$1" in
+	configure)
+		(cd /tmp && tar xf rubygems-1.3.5.tgz)
+		(cd /tmp/rubygems-1.3.5 && /opt/ruby-$VERSION/bin/ruby setup.rb)
+		rm -rf /tmp/rubygems-1.3.5 /tmp/rubygems-1.3.5.tgz
+		;;
+	abort-upgrade)
+		;;
+	abort-remove)
+		;;
+	abort-deconfigure)
+		;;
+	*)
+		;;
+esac
+exit 0
+EOF
 
 	# Build a Debian package.
 	debra build $DESTDIR opt-ruby-${VERSION}_${VERSION}-1_$ARCH.deb
 
-	rm -rf $DESTDIR
+	debra destroy $DESTDIR
 done

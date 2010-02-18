@@ -42,5 +42,5 @@ EOF
 	# Build a Debian package.
 	debra build $DESTDIR opt-python-${VERSION}_${VERSION}-1_$ARCH.deb
 
-	rm -rf $DESTDIR
+	debra destroy $DESTDIR
 done
