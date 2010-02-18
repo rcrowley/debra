@@ -34,8 +34,10 @@ EOF
 	else
 		MYSQL="--with-mysql --with-mysqli"
 	fi
-	debra sourceinstall $DESTDIR $PHP/php-$VERSION.tar.bz2 \
-		-f "--enable-cli --enable-cgi --enable-fastcgi --with-openssl --with-curl --with-zlib $MYSQL --enable-pdo --with-pdo-mysql --enable-pcntl --enable-sqlite-utf8 --with-libxml-dir=/usr --with-pear"
+	mkdir -p $DESTDIR/opt
+	sourceinstall $PHP/php-$VERSION.tar.bz2 \
+		-f "--enable-cli --enable-cgi --enable-fastcgi --with-openssl --with-curl --with-zlib $MYSQL --enable-pdo --with-pdo-mysql --enable-pcntl --enable-sqlite-utf8 --with-libxml-dir=/usr --with-pear" \
+		-p $DESTDIR/opt/php-$VERSION
 
 	# Build a Debian package.
 	debra build $DESTDIR opt-php-${VERSION}_${VERSION}-1_$ARCH.deb
