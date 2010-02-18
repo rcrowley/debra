@@ -3,16 +3,16 @@ debra(8) -- for building Debian packages
 
 ## SYNOPSIS
 
-**debra create _name_ [_control_]**  
-**debra sourceinstall _name_ _tarball-uri_ [_..._]**  
-**debra build _name_ _deb_**  
-**debra destroy _name_**  
+`debra create` _name_ [_control_]  
+`debra sourceinstall` _name_ _tarball-uri_ [_..._]  
+`debra build` _name_ _deb_  
+`debra destroy` _name_  
 
 ## DESCRIPTION
 
 Debra is for building Debian packages.  The `create` subcommand creates a directory for building Debian packages.  The `DEBIAN/control` file is initialized from the first applicable source: the file named by the next command line argument, `$HOME/.debra`, or an empty template.
 
-It is left to the user to populate `DEBIAN/control`, `DEBIAN/postinst`, `DEBIAN/prerm`, and the fake filesystem presented by Debra.  `sourceinstall`(8) can assist in this process.  The `sourceinstall` subcommand calls `sourceinstall`(8) with all arguments passed by the user plus **-d _name_** to set the `DESTDIR` argument to `make install` automatically.
+It is left to the user to populate `DEBIAN/control`, `DEBIAN/postinst`, `DEBIAN/prerm`, and the fake filesystem presented by Debra.  `sourceinstall`(8) can assist in this process.  The `sourceinstall` subcommand calls `sourceinstall`(8) with all arguments passed by the user plus `-d` _name_ to set the `DESTDIR` argument to `make install` automatically.
 
 When the package is ready, the `build` subcommand creates a Debian package with the specified filename.  `DEBIAN/md5sums` is automatically populated with the hashes of each file that will be part of the archive.
 

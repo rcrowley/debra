@@ -14,7 +14,7 @@ ifneq (, $(ron))
 	$(ron) -b $@.md
 	chmod 644 $@
 ifneq (, $(gzip))
-	$(gzip) $@
+	$(gzip) -f $@
 endif
 endif
 
