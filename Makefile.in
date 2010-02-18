@@ -3,19 +3,24 @@ exec_prefix=@exec_prefix@
 bindir=@bindir@
 datarootdir=@datarootdir@
 mandir=@mandir@
+INSTALL=@INSTALL@
 
 all:
 	@true
 
 install:
-	install -d $(DESTDIR)$(bindir) $(DESTDIR)$(mandir)
-	install -c bin/debra $(DESTDIR)$(bindir)/
-	install -c bin/sourceinstall $(DESTDIR)$(bindir)/
-	install -c man/debra.8 $(DESTDIR)$(mandir)/
-	install -c man/sourceinstall.8 $(DESTDIR)$(mandir)/
+	$(INSTALL) -d $(DESTDIR)$(bindir)
+	$(INSTALL) bin/debra $(DESTDIR)$(bindir)/
+	$(INSTALL) bin/sourceinstall $(DESTDIR)$(bindir)/
+	$(INSTALL) -d $(DESTDIR)$(mandir)/man8
+	$(INSTALL) man/debra.8.gz $(DESTDIR)$(mandir)/man8/
+	$(INSTALL) man/sourceinstall.8.gz $(DESTDIR)$(mandir)/man8/
  
 uninstall:
-	rm $(DESTDIR)$(bindir)/debra $(DESTDIR)$(bindir)/sourceinstall
+	rm -f $(DESTDIR)$(bindir)/debra $(DESTDIR)$(bindir)/sourceinstall
+	rm -f $(DESTDIR)$(mandir)/man8/debra.8.gz \
+		$(DESTDIR)$(mandir)/man8/sourceinstall.8.gz
+	rmdir --ignore-fail-on-non-empty $(DESTDIR)$(mandir)/man8
 
 man:
 	@make -C man all
