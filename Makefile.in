@@ -21,10 +21,10 @@ man:
 	@make -C man all
 
 deb:
-	git archive --prefix=debra-0.1.1/ v0.1.1 | gzip >/var/www/static/debra-0.1.1.tar.gz
+	git archive --prefix=debra-0.1.2/ v0.1.2 | gzip >/var/www/static/debra-0.1.2.tar.gz
 	bin/debra create debian control
-	bin/debra sourceinstall debian http://static.rmilitia.com/debra-0.1.1.tar.gz -p /usr/local
-	bin/debra build debian debra_0.1.1-1_all.deb
+	bin/debra sourceinstall debian http://static.rmilitia.com/debra-0.1.2.tar.gz -p /usr/local
+	bin/debra build debian debra_0.1.2-1_all.deb
 	bin/debra destroy debian
 
 .PHONY: all install uninstall man deb

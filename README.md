@@ -21,7 +21,7 @@ When the package is ready, the `build` subcommand creates a Debian package with 
 Debra can build a Debian package for itself.  This example shows how you can use `reprepro`(1) to publish the newly-built Debian package to a local Debian archive and install it through `apt-get`(8).
 
 	make deb
-	reprepro -b /var/packages/ubuntu includedeb karmic debra_0.1.1-1_all.deb
+	reprepro -b /var/packages/ubuntu includedeb karmic debra_0.1.2-1_all.deb
 	apt-get update
 	apt-get install debra
 
