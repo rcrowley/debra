@@ -23,6 +23,7 @@ Description: Standalone Python $VERSION.  This installation includes the setupto
 EOF
 
 	# Install Python itself.
+	mkdir -p $DESTDIR/opt
 	debra sourceinstall $DESTDIR \
 		$PYTHON/$VERSION/Python-$VERSION.tar.bz2
 
