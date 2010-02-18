@@ -28,20 +28,22 @@ EOF
 	else
 		BOOTSTRAP="sh -c 'echo fcntl\\\nopenssl\\\nreadline\\\nzlib >ext/Setup'"
 	fi
+	mkdir -p $DESTDIR/opt
 	debra sourceinstall $DESTDIR $RUBY/$V/ruby-$VERSION.tar.gz \
 		-b "$BOOTSTRAP"
 
 	# Get set to install RubyGems from DEBIAN/postinst.
 	# FIXME The resulting package will be unable to uninstall itself.
-	mkdir $DESTDIR/tmp
-	(cd $DESTDIR/tmp && wget $RUBYFORGE/60718/rubygems-1.3.5.tgz)
+	(cd $DESTDIR/opt/ruby-$VERSION && wget $RUBYFORGE/60718/rubygems-1.3.5.tgz)
 	cat <<EOF >$DESTDIR/DEBIAN/postinst
 #!/bin/sh
 case "\$1" in
 	configure)
-		(cd /tmp && tar xf rubygems-1.3.5.tgz)
-		(cd /tmp/rubygems-1.3.5 && /opt/ruby-$VERSION/bin/ruby setup.rb)
-		rm -rf /tmp/rubygems-1.3.5 /tmp/rubygems-1.3.5.tgz
+		(cd /opt/ruby-$VERSION && tar xf rubygems-1.3.5.tgz)
+		(cd /opt/ruby-$VERSION/rubygems-1.3.5 && \\
+			/opt/ruby-$VERSION/bin/ruby setup.rb)
+		rm -rf /opt/ruby-$VERSION/rubygems-1.3.5 \\
+			/opt/ruby-$VERSION/rubygems-1.3.5.tgz
 		;;
 	abort-upgrade)
 		;;
