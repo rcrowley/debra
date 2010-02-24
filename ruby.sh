@@ -12,7 +12,7 @@ for VERSION in 1.8.7-p249 1.9.1-p378; do
 
 	cat <<EOF >$DESTDIR/DEBIAN/control
 Package: opt-ruby-$VERSION
-Version: $VERSION-1
+Version: $VERSION-3
 Section: devel
 Priority: optional
 Essential: no
