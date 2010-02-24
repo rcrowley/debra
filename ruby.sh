@@ -34,16 +34,16 @@ EOF
 
 	# Get set to install RubyGems from DEBIAN/postinst.
 	# FIXME The resulting package will be unable to uninstall itself.
-	(cd $DESTDIR/opt/ruby-$VERSION && wget $RUBYFORGE/60718/rubygems-1.3.5.tgz)
+	(cd $DESTDIR/opt/ruby-$VERSION && wget $RUBYFORGE/60718/rubygems-1.3.6.tgz)
 	cat <<EOF >$DESTDIR/DEBIAN/postinst
 #!/bin/sh
 case "\$1" in
 	configure)
-		(cd /opt/ruby-$VERSION && tar xf rubygems-1.3.5.tgz)
-		(cd /opt/ruby-$VERSION/rubygems-1.3.5 && \\
+		(cd /opt/ruby-$VERSION && tar xf rubygems-1.3.6.tgz)
+		(cd /opt/ruby-$VERSION/rubygems-1.3.6 && \\
 			/opt/ruby-$VERSION/bin/ruby setup.rb)
-		rm -rf /opt/ruby-$VERSION/rubygems-1.3.5 \\
-			/opt/ruby-$VERSION/rubygems-1.3.5.tgz
+		rm -rf /opt/ruby-$VERSION/rubygems-1.3.6 \\
+			/opt/ruby-$VERSION/rubygems-1.3.6.tgz
 		;;
 	abort-upgrade)
 		;;
@@ -58,7 +58,7 @@ exit 0
 EOF
 
 	# Build a Debian package.
-	debra build $DESTDIR opt-ruby-${VERSION}_${VERSION}-1_$ARCH.deb
+	debra build $DESTDIR opt-ruby-${VERSION}_${VERSION}-2_$ARCH.deb
 
 	debra destroy $DESTDIR
 done
