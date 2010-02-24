@@ -58,7 +58,7 @@ exit 0
 EOF
 
 	# Build a Debian package.
-	debra build $DESTDIR opt-ruby-${VERSION}_${VERSION}-2_$ARCH.deb
+	debra build $DESTDIR opt-ruby-${VERSION}_${VERSION}-3_$ARCH.deb
 
 	debra destroy $DESTDIR
 done
