@@ -2,6 +2,8 @@ ARCH=amd64
 PYTHON=http://python.org/ftp/python
 PYPI=http://pypi.python.org/packages
 
+set -e
+
 apt-get -y install libssl-dev libreadline5-dev zlib1g-dev
 
 for VERSION in 2.5.5 2.6.4 3.1.1; do

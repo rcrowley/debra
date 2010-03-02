@@ -1,6 +1,8 @@
 ARCH=amd64
 PHP=http://us3.php.net/distributions
 
+set -e
+
 apt-get -y install libssl-dev libreadline5-dev zlib1g-dev
 apt-get -y install libxml2-dev libexpat1-dev libcurl4-openssl-dev libicu-dev
 

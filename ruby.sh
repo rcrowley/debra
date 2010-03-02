@@ -2,6 +2,8 @@ ARCH=amd64
 RUBY=ftp://ftp.ruby-lang.org/pub/ruby
 RUBYFORGE=http://rubyforge.org/frs/download.php
 
+set -e
+
 apt-get -y install libssl-dev libreadline5-dev zlib1g-dev
 
 for VERSION_PATCH in 1.8.7-p249 1.9.1-p378; do
