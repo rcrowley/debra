@@ -1,6 +1,6 @@
 ARCH=amd64
 RUBY=ftp://ftp.ruby-lang.org/pub/ruby
-RUBYFORGE=http://rubyforge.org/frs/download.php
+RUBYGEMS=http://production.cf.rubygems.org/rubygems
 
 set -e
 
@@ -37,8 +37,7 @@ EOF
 
 	# Get set to install RubyGems from DEBIAN/postinst.
 	# FIXME The resulting package will be unable to uninstall itself.
-	(cd $DESTDIR/opt/ruby-$VERSION \
-		&& wget $RUBYFORGE/69365/rubygems-1.3.6.tgz)
+	(cd $DESTDIR/opt/ruby-$VERSION && wget $RUBYGEMS/rubygems-1.3.6.tgz)
 	cat <<EOF >$DESTDIR/DEBIAN/postinst
 #!/bin/sh
 set -e
