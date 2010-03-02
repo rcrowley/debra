@@ -15,7 +15,7 @@ for VERSION_PATCH in 1.8.7-p249 1.9.1-p378; do
 
 	cat <<EOF >$DESTDIR/DEBIAN/control
 Package: opt-ruby-$VERSION
-Version: $VERSION_PATCH-2
+Version: $VERSION_PATCH-3
 Section: devel
 Priority: optional
 Essential: no
@@ -37,9 +37,11 @@ EOF
 
 	# Get set to install RubyGems from DEBIAN/postinst.
 	# FIXME The resulting package will be unable to uninstall itself.
-	(cd $DESTDIR/opt/ruby-$VERSION && wget $RUBYFORGE/60718/rubygems-1.3.6.tgz)
+	(cd $DESTDIR/opt/ruby-$VERSION \
+		&& wget $RUBYFORGE/69365/rubygems-1.3.6.tgz)
 	cat <<EOF >$DESTDIR/DEBIAN/postinst
 #!/bin/sh
+set -e
 case "\$1" in
 	configure)
 		(cd /opt/ruby-$VERSION && tar xf rubygems-1.3.6.tgz)
@@ -61,7 +63,7 @@ exit 0
 EOF
 
 	# Build a Debian package.
-	debra build $DESTDIR opt-ruby-${VERSION}_$VERSION_PATCH-2_$ARCH.deb
+	debra build $DESTDIR opt-ruby-${VERSION}_$VERSION_PATCH-3_$ARCH.deb
 
 	debra destroy $DESTDIR
 done
