@@ -4,15 +4,16 @@ RUBYFORGE=http://rubyforge.org/frs/download.php
 
 apt-get -y install libssl-dev libreadline5-dev zlib1g-dev
 
-for VERSION in 1.8.7-p249 1.9.1-p378; do
-	DESTDIR=/tmp/ruby-$VERSION-$$
+for VERSION_PATCH in 1.8.7-p249 1.9.1-p378; do
+	DESTDIR=/tmp/ruby-$VERSION_PATCH-$$
+	VERSION=$(echo $VERSION_PATCH | sed -r 's/^([^-]+).*$/\1/')
 	V=$(echo $VERSION | sed -r 's/^([0-9]+\.[0-9]+).*$/\1/')
 
 	debra create $DESTDIR
 
 	cat <<EOF >$DESTDIR/DEBIAN/control
 Package: opt-ruby-$VERSION
-Version: $VERSION-3
+Version: $VERSION_PATCH-2
 Section: devel
 Priority: optional
 Essential: no
@@ -29,8 +30,8 @@ EOF
 		BOOTSTRAP="sh -c 'echo fcntl\\\nopenssl\\\nreadline\\\nzlib >ext/Setup'"
 	fi
 	mkdir -p $DESTDIR/opt
-	debra sourceinstall $DESTDIR $RUBY/$V/ruby-$VERSION.tar.gz \
-		-b "$BOOTSTRAP"
+	debra sourceinstall $DESTDIR $RUBY/$V/ruby-$VERSION_PATCH.tar.gz \
+		-b "$BOOTSTRAP" -p /opt/ruby-$VERSION
 
 	# Get set to install RubyGems from DEBIAN/postinst.
 	# FIXME The resulting package will be unable to uninstall itself.
@@ -58,7 +59,7 @@ exit 0
 EOF
 
 	# Build a Debian package.
-	debra build $DESTDIR opt-ruby-${VERSION}_${VERSION}-3_$ARCH.deb
+	debra build $DESTDIR opt-ruby-${VERSION}_$VERSION_PATCH-2_$ARCH.deb
 
 	debra destroy $DESTDIR
 done
