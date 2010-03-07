@@ -1,0 +1,21 @@
+ron=@ron@
+gzip=@gzip@
+
+RON=$(wildcard *.md)
+ROFF=$(RON:.md=)
+
+all: clean $(ROFF)
+
+%.8:
+ifneq (, $(ron))
+	$(ron) -b $@.md
+	chmod 644 $@
+ifneq (, $(gzip))
+	$(gzip) -f $@
+endif
+endif
+
+clean:
+	rm -f $(ROFF)
+
+.PHONY: all clean

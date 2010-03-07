@@ -1,21 +1,10 @@
-ron=@ron@
-gzip=@gzip@
+all: man8
 
-RON=$(wildcard *.md)
-ROFF=$(RON:.md=)
-
-all: clean $(ROFF)
+man8:
+	@make -C man8 all
 
 clean:
-	rm -f $(ROFF)
+	rm -f man1/*.1.gz man2/*.2.gz man3/*.3.gz man4/*.4.gz \
+		man5/*.5.gz man6/*.6.gz man7/*.7.gz man8/*.8.gz
 
-%.1 %.2 %.3 %.4 %.5 %.6 %.7 %.8:
-ifneq (, $(ron))
-	$(ron) -b $@.md
-	chmod 644 $@
-ifneq (, $(gzip))
-	$(gzip) -f $@
-endif
-endif
-
-.PHONY: all clean
+.PHONY: all man8 clean

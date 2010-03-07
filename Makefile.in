@@ -13,8 +13,8 @@ install:
 	$(INSTALL) bin/debra $(DESTDIR)$(bindir)/
 	$(INSTALL) bin/sourceinstall $(DESTDIR)$(bindir)/
 	$(INSTALL) -d $(DESTDIR)$(mandir)/man8
-	$(INSTALL) man/debra.8.gz $(DESTDIR)$(mandir)/man8/
-	$(INSTALL) man/sourceinstall.8.gz $(DESTDIR)$(mandir)/man8/
+	$(INSTALL) man/man8/debra.8.gz $(DESTDIR)$(mandir)/man8/
+	$(INSTALL) man/man8/sourceinstall.8.gz $(DESTDIR)$(mandir)/man8/
  
 uninstall:
 	rm -f $(DESTDIR)$(bindir)/debra $(DESTDIR)$(bindir)/sourceinstall
