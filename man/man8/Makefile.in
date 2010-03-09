@@ -1,14 +1,14 @@
-ron=@ron@
+ronn=@ronn@
 gzip=@gzip@
 
-RON=$(wildcard *.md)
-ROFF=$(RON:.md=)
+RONN=$(wildcard *.md)
+ROFF=$(RONN:.md=)
 
 all: clean $(ROFF)
 
 %.8:
-ifneq (, $(ron))
-	$(ron) -b $@.md
+ifneq (, $(ronn))
+	$(ronn) -b $@.md
 	chmod 644 $@
 ifneq (, $(gzip))
 	$(gzip) -f $@

@@ -556,7 +556,7 @@ PACKAGE_URL=''
 ac_subst_vars='LTLIBOBJS
 LIBOBJS
 gzip
-ron
+ronn
 INSTALL_DATA
 INSTALL_SCRIPT
 INSTALL_PROGRAM
@@ -1756,16 +1756,16 @@ test -z "$INSTALL_SCRIPT" && INSTALL_SCRIPT='${INSTALL}'
 
 test -z "$INSTALL_DATA" && INSTALL_DATA='${INSTALL} -m 644'
 
-# Extract the first word of "ron", so it can be a program name with args.
-set dummy ron; ac_word=$2
+# Extract the first word of "ronn", so it can be a program name with args.
+set dummy ronn; ac_word=$2
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
 $as_echo_n "checking for $ac_word... " >&6; }
-if test "${ac_cv_path_ron+set}" = set; then :
+if test "${ac_cv_path_ronn+set}" = set; then :
   $as_echo_n "(cached) " >&6
 else
-  case $ron in
+  case $ronn in
   [\\/]* | ?:[\\/]*)
-  ac_cv_path_ron="$ron" # Let the user override the test with a path.
+  ac_cv_path_ronn="$ronn" # Let the user override the test with a path.
   ;;
   *)
   as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
@@ -1776,7 +1776,7 @@ do
   test -z "$as_dir" && as_dir=.
     for ac_exec_ext in '' $ac_executable_extensions; do
   if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
-    ac_cv_path_ron="$as_dir/$ac_word$ac_exec_ext"
+    ac_cv_path_ronn="$as_dir/$ac_word$ac_exec_ext"
     $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
     break 2
   fi
@@ -1787,10 +1787,10 @@ IFS=$as_save_IFS
   ;;
 esac
 fi
-ron=$ac_cv_path_ron
-if test -n "$ron"; then
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ron" >&5
-$as_echo "$ron" >&6; }
+ronn=$ac_cv_path_ronn
+if test -n "$ronn"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ronn" >&5
+$as_echo "$ronn" >&6; }
 else
   { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
