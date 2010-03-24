@@ -37,6 +37,6 @@ Richard Crowley <r@rcrowley.org>
 
 ## SEE ALSO
 
-`sourceinstall`(8) is part of the Debra package.  Debra's source code is available at <http://github.com/relreso/debra>.
+`sourceinstall`(8) is part of the Debra package.  Debra's source code is available at <http://github.com/devstructure/debra>.
 
 `debra`(8) provides a convenient way to create Debian packages, optionally using `sourceinstall`(8) in the process.

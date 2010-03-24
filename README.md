@@ -42,7 +42,7 @@ Richard Crowley <r@rcrowley.org>
 
 ## SEE ALSO
 
-Debra's source code is available at <http://github.com/relreso/debra>.
+Debra's source code is available at <http://github.com/devstructure/debra>.
 
 `sourceinstall`(8) details options for installing source tarballs.
 
