@@ -21,8 +21,16 @@ DIRNAME=$2
 [ -z "$ACTION" ] && usage
 if [ -z "$DIRNAME" ]; then
 	case $ACTION in
-		help) usage MOAR;;
-		*) usage;;
+		help)
+			usage MOAR
+			;;
+
+		# Dispatch actions in external scripts or fall back to the usage message.
+		*)
+			[ -x $0-$ACTION ] && exec $0-$ACTION $@
+			usage
+			;;
+
 	esac
 fi
 shift 2
