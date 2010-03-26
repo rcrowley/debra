@@ -40,7 +40,7 @@ case $ACTION in
 			if [ -f $HOME/.debra ]; then
 				cp $HOME/.debra $DIRNAME/DEBIAN/control
 			else
-				cat <<EOF >$DIRNAME/DEBIAN/control
+				cat >$DIRNAME/DEBIAN/control <<EOF
 Package: TODO
 Version: TODO
 Section: TODO
@@ -60,11 +60,11 @@ Description: TODO
 EOF
 			fi
 		fi
-		cat <<EOF >$DIRNAME/DEBIAN/postinst
+		cat >$DIRNAME/DEBIAN/postinst <<EOF
 #!/bin/sh
 exit 0
 EOF
-		cat <<EOF >$DIRNAME/DEBIAN/prerm
+		cat >$DIRNAME/DEBIAN/prerm <<EOF
 #!/bin/sh
 exit 0
 EOF
@@ -122,5 +122,6 @@ EOF
 	*)
 		[ -x $0-$ACTION ] && exec $0-$ACTION $@
 		usage
+		;;
 
 esac

@@ -26,10 +26,15 @@ man:
 	@make -C man all
 
 deb:
-	git archive --prefix=debra-0.1.4/ v0.1.4 | gzip >/var/www/static/debra-0.1.4.tar.gz
+ifeq (root, \$(shell whoami))
 	bin/debra create debian control
-	bin/debra sourceinstall debian http://static.rmilitia.com/debra-0.1.4.tar.gz -p /usr/local
-	bin/debra build debian debra_0.1.4-1_all.deb
-	bin/debra destroy debian
+	git archive --prefix=debra-0.1.5/ HEAD | gzip >debra-0.1.5.tar.gz
+	bin/debra sourceinstall debian debra-0.1.5.tar.gz -p /usr/local
+	chown -R root:root debian
+	bin/debra build debian debra_0.1.5-1_all.deb
+	#bin/debra destroy debian
+else
+	@echo "You must be root to build a Debian package."
+endif
 
 .PHONY: all install uninstall man deb

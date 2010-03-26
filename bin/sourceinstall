@@ -42,7 +42,11 @@ fi
 # Fetch and untar into a safe directory.
 mkdir /tmp/sourceinstall-$$
 cd /tmp/sourceinstall-$$
-wget -O - "$TARBALL" | tar x$TARFLAG
+if [ -f "$OLDPWD/$TARBALL" ]; then
+	tar xf "$OLDPWD/$TARBALL"
+else
+	wget -O - "$TARBALL" | tar x$TARFLAG
+fi
 cd *
 
 # Bootstrap, if requested.
