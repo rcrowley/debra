@@ -28,13 +28,14 @@ man:
 	@make -C man all
 
 deb:
-ifeq (root, \$(shell whoami))
+ifeq (root, $(shell whoami))
 	bin/debra create debian control
-	git archive --prefix=debra-0.1.5/ HEAD | gzip >debra-0.1.5.tar.gz
+	git archive --prefix=debra-0.1.5/ v0.1.5 | gzip >debra-0.1.5.tar.gz
 	bin/debra sourceinstall debian debra-0.1.5.tar.gz -p /usr/local
+	rm debra-0.1.5.tar.gz
 	chown -R root:root debian
 	bin/debra build debian debra_0.1.5-1_all.deb
-	#bin/debra destroy debian
+	bin/debra destroy debian
 else
 	@echo "You must be root to build a Debian package."
 endif
