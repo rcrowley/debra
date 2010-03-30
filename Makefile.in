@@ -13,16 +13,16 @@ install:
 	$(INSTALL) bin/debra $(DESTDIR)$(bindir)/
 	$(INSTALL) bin/sourceinstall $(DESTDIR)$(bindir)/
 	$(INSTALL) bin/debra-makefile $(DESTDIR)$(bindir)/
-	$(INSTALL) -d $(DESTDIR)$(mandir)/man8
-	$(INSTALL) man/man8/debra.8.gz $(DESTDIR)$(mandir)/man8/
-	$(INSTALL) man/man8/sourceinstall.8.gz $(DESTDIR)$(mandir)/man8/
+	$(INSTALL) -d $(DESTDIR)$(mandir)/man1
+	$(INSTALL) man/man1/debra.1.gz $(DESTDIR)$(mandir)/man1/
+	$(INSTALL) man/man1/sourceinstall.1.gz $(DESTDIR)$(mandir)/man1/
  
 uninstall:
 	rm -f $(DESTDIR)$(bindir)/debra $(DESTDIR)$(bindir)/sourceinstall \
 		$(DESTDIR)$(bindir)/debra-makefile
-	rm -f $(DESTDIR)$(mandir)/man8/debra.8.gz \
-		$(DESTDIR)$(mandir)/man8/sourceinstall.8.gz
-	rmdir --ignore-fail-on-non-empty $(DESTDIR)$(mandir)/man8
+	rm -f $(DESTDIR)$(mandir)/man1/debra.1.gz \
+		$(DESTDIR)$(mandir)/man1/sourceinstall.1.gz
+	rmdir --ignore-fail-on-non-empty $(DESTDIR)$(mandir)/man1
 
 man:
 	@make -C man all

@@ -17,5 +17,5 @@ AC_PATH_PROG([gzip], [gzip], [], [$PATH])
 
 # Checks for library functions.
 
-AC_CONFIG_FILES([Makefile man/Makefile man/man8/Makefile])
+AC_CONFIG_FILES([Makefile man/Makefile man/man1/Makefile])
 AC_OUTPUT

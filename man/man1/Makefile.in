@@ -6,7 +6,7 @@ ROFF=$(RONN:.md=)
 
 all: clean $(ROFF)
 
-%.8:
+%.1:
 ifneq (, $(ronn))
 	$(ronn) -b $@.md
 	chmod 644 $@
