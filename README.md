@@ -1,4 +1,4 @@
-debra(8) -- for building Debian packages
+debra(1) -- for building Debian packages
 ========================================
 
 ## SYNOPSIS
@@ -12,7 +12,7 @@ debra(8) -- for building Debian packages
 
 Debra is for building Debian packages.  The `create` subcommand creates a directory for building Debian packages.  The `DEBIAN/control` file is initialized from the first applicable source: the file named by the next command line argument, `$HOME/.debra`, or an empty template.
 
-It is left to the user to populate `DEBIAN/control`, `DEBIAN/postinst`, `DEBIAN/prerm`, and the fake filesystem presented by Debra.  `sourceinstall`(8) can assist in this process.  The `sourceinstall` subcommand calls `sourceinstall`(8) with all arguments passed by the user plus `-d` _name_ to set the `DESTDIR` argument to `make install` automatically.
+It is left to the user to populate `DEBIAN/control`, `DEBIAN/postinst`, `DEBIAN/prerm`, and the fake filesystem presented by Debra.  `sourceinstall`(1) can assist in this process.  The `sourceinstall` subcommand calls `sourceinstall`(1) with all arguments passed by the user plus `-d` _name_ to set the `DESTDIR` argument to `make install` automatically.
 
 When the package is ready, the `build` subcommand creates a Debian package with the specified filename.  `DEBIAN/md5sums` is automatically populated with the hashes of each file that will be part of the archive.
 
@@ -44,6 +44,6 @@ Richard Crowley <r@rcrowley.org>
 
 Debra's source code is available at <http://github.com/devstructure/debra>.
 
-`sourceinstall`(8) details options for installing source tarballs.
+`sourceinstall`(1) details options for installing source tarballs.
 
-`reprepro`(1) plus your favorite HTTP server can together manage a Debian archive to serve the packages built by `debra`(8).
+`reprepro`(1) plus your favorite HTTP server can together manage a Debian archive to serve the packages built by `debra`(1).
