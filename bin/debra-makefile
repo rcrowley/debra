@@ -19,15 +19,17 @@ while getopts ah name; do
 done
 
 cat >>$MAKEFILE <<EOF
+VERSION=\$(shell grep Version control | awk '{print \$\$2}')
+
 all:
 	@true
 
 deb:
 ifeq (root, \$(shell whoami))
 	debra create debian control
-	# TODO Copy files into place.
+	# TODO
 	chown -R root:root debian
-	debra build debian # TODO Package filename.
+	debra build debian PACKAGE_$(VERSION)_ARCH.deb # TODO
 	debra destroy debian
 else
 	@echo "You must be root to build a Debian package."
