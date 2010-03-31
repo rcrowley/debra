@@ -33,7 +33,7 @@ Options may be set multiple times.  In all cases, the last one wins.
 
 ## AUTHOR
 
-Richard Crowley <r@rcrowley.org>
+Richard Crowley <richard@devstructure.com>
 
 ## SEE ALSO
 

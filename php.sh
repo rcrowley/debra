@@ -26,7 +26,7 @@ Priority: optional
 Essential: no
 Architecture: amd64
 Depends: libc6, libssl0.9.8, libreadline5, zlib1g, libxml2, libexpat1, libcurl3, libicu40$MYSQL
-Maintainer: Richard Crowley <r@rcrowley.org>
+Maintainer: Richard Crowley <richard@devstructure.com>
 Description: Standalone PHP $VERSION.
 EOF
 

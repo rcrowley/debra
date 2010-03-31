@@ -38,7 +38,7 @@ Beck - "Debra"
 
 ## AUTHOR
 
-Richard Crowley <r@rcrowley.org>
+Richard Crowley <richard@devstructure.com>
 
 ## SEE ALSO
 

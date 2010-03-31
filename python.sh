@@ -20,7 +20,7 @@ Priority: optional
 Essential: no
 Architecture: amd64
 Depends: libc6, libssl0.9.8, libreadline5, zlib1g
-Maintainer: Richard Crowley <r@rcrowley.org>
+Maintainer: Richard Crowley <richard@devstructure.com>
 Description: Standalone Python $VERSION.  This installation includes the setuptools and pip packages from PyPI.
 EOF
 

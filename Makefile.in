@@ -5,6 +5,8 @@ datarootdir=@datarootdir@
 mandir=@mandir@
 INSTALL=@INSTALL@
 
+VERSION=$(shell grep Version control | awk '{print $$2}')
+
 all:
 	@true
 
@@ -14,8 +16,8 @@ install:
 	$(INSTALL) bin/sourceinstall $(DESTDIR)$(bindir)/
 	$(INSTALL) bin/debra-makefile $(DESTDIR)$(bindir)/
 	$(INSTALL) -d $(DESTDIR)$(mandir)/man1
-	$(INSTALL) man/man1/debra.1.gz $(DESTDIR)$(mandir)/man1/
-	$(INSTALL) man/man1/sourceinstall.1.gz $(DESTDIR)$(mandir)/man1/
+	$(INSTALL) -m644 man/man1/debra.1.gz $(DESTDIR)$(mandir)/man1/
+	$(INSTALL) -m644 man/man1/sourceinstall.1.gz $(DESTDIR)$(mandir)/man1/
  
 uninstall:
 	rm -f $(DESTDIR)$(bindir)/debra $(DESTDIR)$(bindir)/sourceinstall \
@@ -30,11 +32,11 @@ man:
 deb:
 ifeq (root, $(shell whoami))
 	bin/debra create debian control
-	git archive --prefix=debra-0.1.5/ v0.1.5 | gzip >debra-0.1.5.tar.gz
-	bin/debra sourceinstall debian debra-0.1.5.tar.gz -p /usr/local
-	rm debra-0.1.5.tar.gz
+	git archive --prefix=debian/ HEAD | gzip >debian.tar.gz
+	bin/debra sourceinstall debian debian.tar.gz -p /usr/local
+	rm debian.tar.gz
 	chown -R root:root debian
-	bin/debra build debian debra_0.1.5-1_all.deb
+	bin/debra build debian debra_$(VERSION)_all.deb
 	bin/debra destroy debian
 else
 	@echo "You must be root to build a Debian package."
