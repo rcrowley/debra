@@ -1,0 +1,24 @@
+#!/bin/sh
+
+usage() {
+	echo "Usage: $(basename $0) <name> [-h]" >&2
+	if [ -n "$1" ]; then
+		echo "  <name>     name of a Debra directory" >&2
+		echo "  -h, --help show this help message" >&2
+	fi
+	exit 1
+}
+
+[ "--help" = "$1" ] && usage MOAR
+while getopts h name; do
+	case "$name" in
+		h) usage MOAR;;
+		*) usage;;
+	esac
+done
+DIRNAME=$1
+[ -z "$DIRNAME" ] && usage
+shift
+DIRNAME=$(readlink -fn $DIRNAME)
+
+exec rm -rf $DIRNAME

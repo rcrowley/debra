@@ -1,0 +1,30 @@
+#!/bin/sh
+
+usage() {
+	echo "Usage: $(basename $0) <name> <tarball> [...] [-h]" >&2
+	if [ -n "$1" ]; then
+		echo "  <name>     name of a Debra directory" >&2
+		echo "  <tarball>  path or URI to a source tarball" >&2
+		echo "  [...]      sourceinstall(1) arguments" >&2
+		echo "  -h, --help show this help message" >&2
+	fi
+	exit 1
+}
+
+[ "--help" = "$1" ] && usage MOAR
+while getopts h name; do
+	case "$name" in
+		h) usage MOAR;;
+		*) usage;;
+	esac
+done
+DIRNAME=$1
+[ -z "$DIRNAME" ] && usage
+shift
+DIRNAME=$(readlink -fn $DIRNAME)
+TARBALL=$1
+[ -z "$TARBALL" ] && usage
+shift
+
+PACKAGE=$(basename "$TARBALL" | sed -r 's/^(.+)\.(tar\.(bz2|gz)|tgz)$/\1/')
+exec $(dirname $0)/sourceinstall "$TARBALL" -p /opt/$PACKAGE "$@" -d $DIRNAME

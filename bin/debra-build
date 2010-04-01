@@ -1,0 +1,45 @@
+#!/bin/sh
+
+usage() {
+	echo "Usage: $(basename $0) <name> <deb> [-h]" >&2
+	if [ -n "$1" ]; then
+		echo "  <name>     name of a Debra directory" >&2
+		echo "  <deb>      Debian package file to create" >&2
+		echo "  -h, --help show this help message" >&2
+	fi
+	exit 1
+}
+
+[ "--help" = "$1" ] && usage MOAR
+while getopts h name; do
+	case "$name" in
+		h) usage MOAR;;
+		*) usage;;
+	esac
+done
+DIRNAME=$1
+[ -z "$DIRNAME" ] && usage
+shift
+DIRNAME=$(readlink -fn $DIRNAME)
+DEB=$1
+[ -z "$DEB" ] && usage
+shift
+
+# Fix incorrect paths (mostly in shebang lines) before running
+# `dpkg`.  Files are copied aside rather than moved to preserve
+# their permissions.
+for PATHNAME in $(grep -rlI $DIRNAME $DIRNAME); do
+	cp $PATHNAME $PATHNAME.sav
+	sed s/$(echo $DIRNAME | sed 's/\//\\\//g')//g \
+		<$PATHNAME.sav >$PATHNAME
+	rm $PATHNAME.sav
+done
+
+# Create DEBIAN/md5sums for inclusion in the package.
+rm -f $DIRNAME/DEBIAN/md5sums
+for PATHNAME in $(find $DIRNAME -type f -not -path $DIRNAME/DEBIAN/\*)
+do
+	md5sum $PATHNAME >>$DIRNAME/DEBIAN/md5sums
+done
+
+exec dpkg -b $DIRNAME $DEB
