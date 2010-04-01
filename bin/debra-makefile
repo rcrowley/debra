@@ -13,7 +13,7 @@ usage() {
 [ "--help" = "$1" ] && usage MOAR
 PACKAGE=$(basename $PWD)
 ARCH=all
-while getopts pah name; do
+while getopts p:a:h name; do
 	case "$name" in
 		p) PACKAGE=$OPTARG;;
 		a) ARCH=$OPTARG;;
