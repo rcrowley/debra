@@ -17,10 +17,8 @@ debra(1) -- build Debian packages
   Build a Debian package.
 * `debra-destroy`(1):
   Destroy a Debra directory.
-
 * `debra-makefile`(1):
   Generate Makefiles for building packages with Debra.
-
 * `sourceinstall`(1):
   Install from a source tarball.
 
