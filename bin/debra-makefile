@@ -1,50 +1,91 @@
 #!/bin/sh
 
 usage() {
-	echo "Usage: $(basename $0) [-a]" >&2
+	echo "Usage: $(basename $0) [-p <package>] [-a <arch>] [-h]" >&2
 	if [ -n "$1" ]; then
-		echo "  -a  create Makefile.in for autoconf builds" >&2
-		echo "  -h  show this help message" >&2
+		echo "  -p <package> package name (defaults to \$PWD)" >&2
+		echo "  -a <arch>    architecture (defaults to \"all\")" >&2
+		echo "  -h           show this help message" >&2
 	fi
 	exit 1
 }
 
-MAKEFILE=Makefile
-while getopts ah name; do
+[ "--help" = "$1" ] && usage MOAR
+PACKAGE=$(basename $PWD)
+ARCH=all
+while getopts pah name; do
 	case "$name" in
-		a) MAKEFILE=Makefile.in;;
+		p) PACKAGE=$OPTARG;;
+		a) ARCH=$OPTARG;;
 		h) usage MOAR;;
 		*) usage;;
 	esac
 done
 
-cat >>$MAKEFILE <<EOF
+if [ -f Makefile.in ]; then
+	echo "[debra-makefile] Makefile.in exists, appending to it" >&2
+fi
+cat >>Makefile.in <<EOF
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+bindir=@bindir@
+sbindir=@sbindir@
+libexecdir=@libexecdir@
+sysconfdir=@sysconfdir@
+sharedstatedir=@sharedstatedir@
+localstatedir=@localstatedir@
+libdir=@libdir@
+includedir=@includedir@
+oldincludedir=@oldincludedir@
+datarootdir=@datarootdir@
+datadir=@datadir@
+infodir=@infodir@
+localedir=@localedir@
+mandir=@mandir@
+docdir=@docdir@
+htmldir=@htmldir@
+dvidir=@dvidir@
+pdfdir=@pdfdir@
+psdir=@psdir@
+INSTALL=@INSTALL@
+
 VERSION=\$(shell grep Version control | awk '{print \$\$2}')
 
 all:
 	@true
 
+install:
+	# TODO \$(INSTALL) bin/$PACKAGE \$(DESTDIR)\$(bindir)/
+
+uninstall:
+	# TODO rm -f \$(DESTDIR)\$(bindir)/$PACKAGE
+
 deb:
 ifeq (root, \$(shell whoami))
 	debra create debian control
-	# TODO
+	git archive --prefix=debian/ HEAD | gzip >debian.tar.gz
+	sourceinstall debian debian.tar.gz -p \$(prefix)
+	rm debian.tar.gz
 	chown -R root:root debian
-	debra build debian PACKAGE_$(VERSION)_ARCH.deb # TODO
+	debra build debian ${PACKAGE}_\$(VERSION)_${ARCH}.deb
 	debra destroy debian
 else
 	@echo "You must be root to build a Debian package."
 endif
 
-.PHONY: all deb
+.PHONY: all install uninstall deb
 EOF
 
-cat >control <<EOF
-Package: TODO
+if [ -f control ]; then
+	echo "[debra-makefile] control exists, skipping it" >&2
+else
+	cat >control <<EOF
+Package: $PACKAGE
 Version: TODO
 Section: TODO
 Priority: optional
 Essential: no
-Architecture: TODO
+Architecture: $ARCH
 Depends: TODO
 Pre-Depends: TODO
 Recommends: TODO
@@ -53,6 +94,30 @@ Conflicts: TODO
 Replaces: TODO
 Provides: TODO
 Installed-Size: TODO
-Maintainer: TODO
+Maintainer: $(git config user.name) <$(git config user.email)>
 Description: TODO
+EOF
+fi
+
+if [ -f $(dirname $0)/../share/debra/install-sh ]; then
+	cp $(dirname $0)/../share/debra/install-sh ./
+elif [ -f $(dirname $0)/../install-sh ]; then
+	cp $(dirname $0)/../install-sh ./
+else
+	echo "[debra-makefile] no install-sh found" >&2
+fi
+
+autoscan
+sed s/FULL-PACKAGE-NAME/$PACKAGE/ <configure.scan \
+	| sed s/BUG-REPORT-ADDRESS/$(git config user.email)/ >configure.ac
+
+if [ -f .gitignore ]; then
+	echo "[debra-makefile] .gitignore exists, appending to it" >&2
+fi
+cat >>.gitignore <<EOF
+autoscan.log
+configure.scan
+autom4te.cache
+config.*
+Makefile
 EOF
