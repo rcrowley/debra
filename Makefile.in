@@ -1,8 +1,24 @@
 prefix=@prefix@
 exec_prefix=@exec_prefix@
 bindir=@bindir@
+sbindir=@sbindir@
+libexecdir=@libexecdir@
+sysconfdir=@sysconfdir@
+sharedstatedir=@sharedstatedir@
+localstatedir=@localstatedir@
+libdir=@libdir@
+includedir=@includedir@
+oldincludedir=@oldincludedir@
 datarootdir=@datarootdir@
+datadir=@datadir@
+infodir=@infodir@
+localedir=@localedir@
 mandir=@mandir@
+docdir=@docdir@
+htmldir=@htmldir@
+dvidir=@dvidir@
+pdfdir=@pdfdir@
+psdir=@psdir@
 INSTALL=@INSTALL@
 
 VERSION=$(shell grep Version control | awk '{print $$2}')
@@ -12,19 +28,25 @@ all:
 
 install:
 	$(INSTALL) -d $(DESTDIR)$(bindir)
-	$(INSTALL) bin/debra $(DESTDIR)$(bindir)/
-	$(INSTALL) bin/sourceinstall $(DESTDIR)$(bindir)/
-	$(INSTALL) bin/debra-makefile $(DESTDIR)$(bindir)/
+	$(INSTALL) \
+		bin/debra bin/debra-* \
+		bin/sourceinstall \
+		$(DESTDIR)$(bindir)/
 	$(INSTALL) -d $(DESTDIR)$(mandir)/man1
-	$(INSTALL) -m644 man/man1/debra.1.gz $(DESTDIR)$(mandir)/man1/
-	$(INSTALL) -m644 man/man1/sourceinstall.1.gz $(DESTDIR)$(mandir)/man1/
+	$(INSTALL) -m644 \
+		man/man1/debra.1.gz \
+		man/man1/debra-*.1.gz \
+		man/man1/sourceinstall.1.gz \
+		$(DESTDIR)$(mandir)/man1/
  
 uninstall:
-	rm -f $(DESTDIR)$(bindir)/debra $(DESTDIR)$(bindir)/sourceinstall \
-		$(DESTDIR)$(bindir)/debra-makefile
-	rm -f $(DESTDIR)$(mandir)/man1/debra.1.gz \
+	rm -f \
+		$(DESTDIR)$(bindir)/debra \
+		$(DESTDIR)$(bindir)/debra-* \
+		$(DESTDIR)$(bindir)/sourceinstall \
+		$(DESTDIR)$(mandir)/man1/debra.1.gz \
+		$(DESTDIR)$(mandir)/man1/debra-*.1.gz \
 		$(DESTDIR)$(mandir)/man1/sourceinstall.1.gz
-	rmdir --ignore-fail-on-non-empty $(DESTDIR)$(mandir)/man1
 
 man:
 	@make -C man all
@@ -33,7 +55,7 @@ deb:
 ifeq (root, $(shell whoami))
 	bin/debra create debian control
 	git archive --prefix=debian/ HEAD | gzip >debian.tar.gz
-	bin/debra sourceinstall debian debian.tar.gz -p /usr/local
+	bin/debra sourceinstall debian debian.tar.gz -p $(prefix)
 	rm debian.tar.gz
 	chown -R root:root debian
 	bin/debra build debian debra_$(VERSION)_all.deb
