@@ -1,9 +1,10 @@
 Package: debra
-Version: 0.1.6-1
+Version: 0.2-1
 Section: devel
 Priority: optional
 Essential: no
 Architecture: all
 Depends: bash, coreutils, dpkg, grep, sed, wget
+Recommends: git-core
 Maintainer: Richard Crowley <richard@devstructure.com>
 Description: Tools for building Debian packages.

@@ -107,9 +107,13 @@ else
 	echo "[debra-makefile] no install-sh found" >&2
 fi
 
-autoscan
-sed s/FULL-PACKAGE-NAME/$PACKAGE/ <configure.scan \
-	| sed s/BUG-REPORT-ADDRESS/$(git config user.email)/ >configure.ac
+if [ -f configure.ac ]; then
+	echo "[debra-makefile] configure.ac exists, skipping it" >&2
+else
+	autoscan
+	sed s/FULL-PACKAGE-NAME/$PACKAGE/ <configure.scan \
+		| sed s/BUG-REPORT-ADDRESS/$(git config user.email)/ >configure.ac
+fi
 
 if [ -f .gitignore ]; then
 	echo "[debra-makefile] .gitignore exists, appending to it" >&2

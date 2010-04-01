@@ -1,9 +1,9 @@
-sourceinstall(1) -- install from a source tarball URL
-=====================================================
+sourceinstall(1) -- install from a source tarball
+=================================================
 
 ## SYNOPSIS
 
-`sourceinstall` _tarball-uri_ [`-b` _bootstrap_] [`-f` _flags_] [`-p` _prefix_] [`-d` _destdir_] [`-c` _command_] [`-h`]  
+`sourceinstall` _tarball_ [`-b` _bootstrap_] [`-f` _flags_] [`-p` _prefix_] [`-d` _destdir_] [`-c` _command_] [`-h`]  
 
 ## DESCRIPTION
 
@@ -13,21 +13,18 @@ Sourceinstall automates the fetch, extract, install cycle frequently encountered
 
 Options may be set multiple times.  In all cases, the last one wins.
 
+* _tarball_:
+  Path or URI to a source tarball.
 * `-b` _bootstrap_:
-  Command to run before beginning the `./configure`, `make`, `make install` sequence.  This command is run from the root of the extracted tarball.
-
+  Bootstrap command to run before beginning `./configure`, `make`, `make install`.  This command is run from the root of the extracted tarball.
 * `-f` _flags_:
-  Flags to be passed to `./configure`.
-
+  Flags passed to `./configure`.
 * `-p` _prefix_:
-  Shortcut to the `--prefix` flag to `./configure`.  If provided after `-f`, this will override any `--prefix` flag set there.
-
+  Prefix passed to `./configure`.  Shortcut to the `--prefix` flag which will override any `--prefix` set in _flags_.
 * `-d` _destdir_:
-  The directory to be passed as `DESTDIR` to `make install`.
-
+  Destination directory passed to `make install` as `DESTDIR`.
 * `-c` _command_:
-  A command to be run instead of the _bootstrap_, `./configure`, `make`, `make install` sequence.
-
+  Command to run instead of `./configure`, `make`, `make install`.  This command is run from the root of the extracted tarball.
 * `-h`:
   Show a help message.
 
@@ -37,6 +34,4 @@ Richard Crowley <richard@devstructure.com>
 
 ## SEE ALSO
 
-`sourceinstall`(1) is part of the Debra package.  Debra's source code is available at <http://github.com/devstructure/debra>.
-
-`debra`(1) provides a convenient way to create Debian packages, optionally using `sourceinstall`(1) in the process.
+Part of `debra`(1).

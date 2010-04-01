@@ -1,27 +1,38 @@
-debra(1) -- for building Debian packages
-========================================
+debra(1) -- build Debian packages
+=================================
 
 ## SYNOPSIS
 
-`debra create` _name_ [_control_]  
-`debra sourceinstall` _name_ _tarball-uri_ [_..._]  
-`debra build` _name_ _deb_  
-`debra destroy` _name_  
+`debra` [_command_] [_..._]  
 
 ## DESCRIPTION
 
-Debra is for building Debian packages.  The `create` subcommand creates a directory for building Debian packages.  The `DEBIAN/control` file is initialized from the first applicable source: the file named by the next command line argument, `$HOME/.debra`, or an empty template.
+`debra` programs are used to build Debian packages in a fairly sane manner.
 
-It is left to the user to populate `DEBIAN/control`, `DEBIAN/postinst`, `DEBIAN/prerm`, and the fake filesystem presented by Debra.  `sourceinstall`(1) can assist in this process.  The `sourceinstall` subcommand calls `sourceinstall`(1) with all arguments passed by the user plus `-d` _name_ to set the `DESTDIR` argument to `make install` automatically.
+* `debra-create`(1):
+  Create a new Debra directory.
+* `debra-sourceinstall`(1):
+  Install from a source tarball.
+* `debra-build`(1):
+  Build a Debian package.
+* `debra-destroy`(1):
+  Destroy a Debra directory.
 
-When the package is ready, the `build` subcommand creates a Debian package with the specified filename.  `DEBIAN/md5sums` is automatically populated with the hashes of each file that will be part of the archive.
+* `debra-makefile`(1):
+  Generate Makefiles for building packages with Debra.
+
+* `sourceinstall`(1):
+  Install from a source tarball.
 
 ## EXAMPLES
 
-Debra can build a Debian package for itself.  This example shows how you can use `reprepro`(1) to publish the newly-built Debian package to a local Debian archive and install it through `apt-get`(8).
+`debra-makefile` generates `Makefile.in`, `control`, `install-sh`, `configure.ac`, and `.gitignore` with installation and package building targets.
 
+Using `debra-makefile`, Debra can build a Debian package for itself.  This example shows how you can use `reprepro`(1) to publish the newly-built Debian package to a local Debian archive and install it through `apt-get`(8).
+
+	./configure
 	make deb
-	reprepro -b /var/packages/ubuntu includedeb karmic debra_0.1.4-1_all.deb
+	reprepro -b /var/packages/ubuntu includedeb karmic debra_*_all.deb
 	apt-get update
 	apt-get install debra
 
@@ -30,7 +41,7 @@ Debra can build a Debian package for itself.  This example shows how you can use
 ## FILES
 
 * `$HOME/.debra`:
-  The contents of `$HOME/.debra` will be used to initialize the `DEBIAN/control` file during the `create` action.
+  The contents of `$HOME/.debra` is used by `debra-create`(1) to initialize the `DEBIAN/control` file.
 
 ## THEME SONG
 
@@ -42,8 +53,8 @@ Richard Crowley <richard@devstructure.com>
 
 ## SEE ALSO
 
-Debra's source code is available at <http://github.com/devstructure/debra>.
+`debra-create`(1), `debra-sourceinstall`(1), `debra-build`(1), `debra-destroy`(1), `debra-makefile`(1).
 
-`sourceinstall`(1) details options for installing source tarballs.
+`sourceinstall`(1) is a generic way to automate installation from tarballs.
 
 `reprepro`(1) plus your favorite HTTP server can together manage a Debian archive to serve the packages built by `debra`(1).

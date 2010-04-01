@@ -1,20 +1,23 @@
 #!/bin/sh
 
 usage() {
-	echo "Usage: $(basename $0) <tarball-uri>" >&2
+	echo "Usage: $(basename $0) <tarball>" >&2
 	echo "       [-b <bootstrap>]" >&2
 	echo "       [-f <flags>] [-p <prefix>] [-d <destdir>]" >&2
 	echo "       [-c <command>] [-h]" >&2
 	if [ -n "$1" ]; then
-		echo "  -b bootstrap command to run before any others" >&2
-		echo "  -f flags passed to configure" >&2
-		echo "  -p prefix passed to configure (after other flags)" >&2
-		echo "  -d destination directory passed to make as DESTDIR" >&2
-		echo "  -c command to run instead of configure && make && make install" >&2
-		echo "  -h show this help message" >&2
+		echo "  <tarball>      path or URI to a source tarball" >&2
+		echo "  -b <bootstrap> bootstrap command to run before any others" >&2
+		echo "  -f <flags>     flags passed to configure" >&2
+		echo "  -p <prefix>    prefix passed to configure" >&2
+		echo "  -d <destdir>   destination directory passed to make as DESTDIR" >&2
+		echo "  -c <command>   command to run instead of configure && make && make install" >&2
+		echo "  -h             show this help message" >&2
 	fi
 	exit 1
 }
+
+[ "--help" = "$1" ] && usage MOAR
 TARBALL=$1
 [ -z "$TARBALL" ] && usage
 [ -h = $TARBALL ] && usage MOAR

@@ -3,16 +3,22 @@ debra-makefile(1) -- generate Makefiles for building packages with Debra
 
 ## SYNOPSIS
 
-`debra-makefile` [`-a`]
+`debra-makefile` [`-p` _package_] [`-a` _architecture_] [`-h`]  
 
 ## DESCRIPTION
 
-Use this program to generate a basic Makefile and control file for incorporating `debra`(1) into your project's build system.  The generated files are marked TODO in places that need your attention.  Any existing Makefile or Makefile.in will be appended to rather than overwritten.
+`debra-makefile` generates `Makefile.in`, `control`, `install-sh`, `configure.ac`, and `.gitignore` for incorporating `debra`(1) into your project's build system.  The generated files are marked TODO in places that need your attention.
+
+An existing `Makefile.in` will be appended to.  An existing `control` file will be preserved.  An existing `configure.ac` will be preserved.  An existing `.gitignore` will be appended to.
+
+If possible, your Git config will be used to populate name and email address fields.
 
 ## OPTIONS
 
-* `-a`:
-  When given, Makefile.in will be generated in anticipation of an `autoconf`(1)-aware build system.
+* `-p` _package_:
+  Package name.  Defaults to the name of the current directory.
+* `-a` _architecture_:
+  Architecture.  Defaults to "all".
 
 ## THEME SONG
 
