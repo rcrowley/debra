@@ -1,10 +1,11 @@
 #!/bin/sh
 
 usage() {
-	echo "Usage: $(basename $0) <name> <tarball> [...] [-h]" >&2
+	echo "Usage: $(basename $0) <name> <tarball> [-o] [...] [-h]" >&2
 	if [ -n "$1" ]; then
 		echo "  <name>     name of a Debra directory" >&2
 		echo "  <tarball>  path or URI to a source tarball" >&2
+		echo "  -o         set prefix based on tarball filename" >&2
 		echo "  [...]      sourceinstall(1) arguments" >&2
 		echo "  -h, --help show this help message" >&2
 	fi
@@ -12,8 +13,10 @@ usage() {
 }
 
 [ "--help" = "$1" ] && usage MOAR
-while getopts h name; do
+OPT=
+while getopts oh name; do
 	case "$name" in
+		o) OPT=opt;;
 		h) usage MOAR;;
 		*) usage;;
 	esac
@@ -26,5 +29,8 @@ TARBALL=$1
 [ -z "$TARBALL" ] && usage
 shift
 
-PACKAGE=$(basename "$TARBALL" | sed -r 's/^(.+)\.(tar\.(bz2|gz)|tgz)$/\1/')
-exec $(dirname $0)/sourceinstall "$TARBALL" -p /opt/$PACKAGE "$@" -d $DIRNAME
+if [ -n "$OPT" ]; then
+	PREFIX="-p /opt/$(basename "$TARBALL" \
+		| sed -r 's/^(.+)\.(tar\.(bz2|gz)|tgz)$/\1/')"
+fi
+exec $(dirname $0)/sourceinstall "$TARBALL" $PREFIX "$@" -d $DIRNAME
