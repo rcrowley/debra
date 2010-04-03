@@ -5,6 +5,6 @@ Priority: optional
 Essential: no
 Architecture: all
 Depends: bash, coreutils, dpkg, grep, sed, wget
-Recommends: git-core
+Recommends: autoconf, git-core
 Maintainer: Richard Crowley <richard@devstructure.com>
 Description: Tools for building Debian packages.
