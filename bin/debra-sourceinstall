@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 
 usage() {
 	echo "Usage: $(basename $0) <name> <tarball> [-o] [...] [-h]" >&2
