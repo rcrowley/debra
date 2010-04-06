@@ -70,7 +70,7 @@ uninstall:
 deb:
 ifeq (root, \$(shell whoami))
 	\$(DEBRA) create debian control
-	\$(GITARCHIVE) --prefix=debian/ HEAD | \$(GZIP) >debian.tar.gz
+	\$(GIT) archive --prefix=debian/ HEAD | \$(GZIP) >debian.tar.gz
 	\$(DEBRA) sourceinstall debian debian.tar.gz -p \$(prefix)
 	rm debian.tar.gz
 	chown -R root:root debian
