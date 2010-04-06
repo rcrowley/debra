@@ -19,9 +19,14 @@ htmldir=@htmldir@
 dvidir=@dvidir@
 pdfdir=@pdfdir@
 psdir=@psdir@
-INSTALL=@INSTALL@
 
-VERSION=$(shell grep Version control | awk '{print $$2}')
+INSTALL=@INSTALL@
+AWK=@AWK@
+GREP=@GREP@
+GIT=@GIT@
+GZIP=@GZIP@
+
+VERSION=$(shell $(GREP) Version control | $(AWK) '{print $$2}')
 
 all:
 	@true
@@ -38,6 +43,9 @@ install:
 		man/man1/debra-*.1.gz \
 		man/man1/sourceinstall.1.gz \
 		$(DESTDIR)$(mandir)/man1/
+	$(INSTALL) -d $(DESTDIR)$(datarootdir)/debra
+	$(INSTALL) install-sh $(DESTDIR)$(datarootdir)/debra/
+	$(INSTALL) -m644 configure.ac.patch $(DESTDIR)$(datarootdir)/debra/
  
 uninstall:
 	rm -f \
@@ -46,15 +54,15 @@ uninstall:
 		$(DESTDIR)$(bindir)/sourceinstall \
 		$(DESTDIR)$(mandir)/man1/debra.1.gz \
 		$(DESTDIR)$(mandir)/man1/debra-*.1.gz \
-		$(DESTDIR)$(mandir)/man1/sourceinstall.1.gz
-
-man:
-	@make -C man all
+		$(DESTDIR)$(mandir)/man1/sourceinstall.1.gz \
+		$(DESTDIR)$(datarootdir)/debra/install-sh \
+		$(DESTDIR)$(datarootdir)/debra/configure.ac.patch
+	rmdir $(DESTDIR)$(datarootdir)/debra
 
 deb:
 ifeq (root, $(shell whoami))
 	bin/debra create debian control
-	git archive --prefix=debian/ HEAD | gzip >debian.tar.gz
+	$(GIT) archive --prefix=debian/ HEAD | $(GZIP) >debian.tar.gz
 	bin/debra sourceinstall debian debian.tar.gz -p $(prefix)
 	rm debian.tar.gz
 	chown -R root:root debian

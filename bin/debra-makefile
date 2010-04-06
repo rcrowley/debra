@@ -48,9 +48,15 @@ htmldir=@htmldir@
 dvidir=@dvidir@
 pdfdir=@pdfdir@
 psdir=@psdir@
-INSTALL=@INSTALL@
 
-VERSION=\$(shell grep Version control | awk '{print \$\$2}')
+INSTALL=@INSTALL@
+AWK=@AWK@
+GREP=@GREP@
+DEBRA=@DEBRA@
+GIT=@GIT@
+GZIP=@GZIP@
+
+VERSION=\$(shell \$(GREP) Version control | \$(AWK) '{print \$\$2}')
 
 all:
 	@true
@@ -63,13 +69,13 @@ uninstall:
 
 deb:
 ifeq (root, \$(shell whoami))
-	debra create debian control
-	git archive --prefix=debian/ HEAD | gzip >debian.tar.gz
-	sourceinstall debian debian.tar.gz -p \$(prefix)
+	\$(DEBRA) create debian control
+	\$(GITARCHIVE) --prefix=debian/ HEAD | \$(GZIP) >debian.tar.gz
+	\$(DEBRA) sourceinstall debian debian.tar.gz -p \$(prefix)
 	rm debian.tar.gz
 	chown -R root:root debian
-	debra build debian ${PACKAGE}_\$(VERSION)_${ARCH}.deb
-	debra destroy debian
+	\$(DEBRA) build debian ${PACKAGE}_\$(VERSION)_${ARCH}.deb
+	\$(DEBRA) destroy debian
 else
 	@echo "You must be root to build a Debian package."
 endif
@@ -114,15 +120,24 @@ else
 	autoscan
 	sed s/FULL-PACKAGE-NAME/$PACKAGE/ <configure.scan \
 		| sed s/BUG-REPORT-ADDRESS/$(git config user.email)/ >configure.ac
+	if [ -f $(dirname $0)/../share/debra/configure.ac.patch ]; then
+		patch configure.ac $(dirname $0)/../share/debra/configure.ac.patch
+	elif [ -f $(dirname $0)/../configure.ac.patch ]; then
+		patch configure.ac $(dirname $0)/../configure.ac.patch
+	else
+		echo "[debra-makefile] no configure.ac.patch found" >&2
+	fi
 fi
 
 if [ -f .gitignore ]; then
 	echo "[debra-makefile] .gitignore exists, appending to it" >&2
 fi
 cat >>.gitignore <<EOF
+*.swp
 autoscan.log
 configure.scan
 autom4te.cache
-config.*
+config.log
+config.status
 Makefile
 EOF
