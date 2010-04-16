@@ -4,7 +4,7 @@ set -e
 usage() {
 	echo "Usage: $(basename $0) <tarball>" >&2
 	echo "       [-b <bootstrap>]" >&2
-	echo "       [-f <flags>] [-p <prefix>] [-d <destdir>]" >&2
+	echo "       [-f <flags>] [-p <prefix>] [-d <destdir>] [-i <target>]" >&2
 	echo "       [-c <command>] [-h]" >&2
 	if [ -n "$1" ]; then
 		echo "  <tarball>      path or URI to a source tarball" >&2
@@ -12,6 +12,7 @@ usage() {
 		echo "  -f <flags>     flags passed to configure" >&2
 		echo "  -p <prefix>    prefix passed to configure" >&2
 		echo "  -d <destdir>   destination directory passed to make as DESTDIR" >&2
+		echo "  -i <install>   make target to run instead of install" >&2
 		echo "  -c <command>   command to run instead of configure && make && make install" >&2
 		echo "  -h             show this help message" >&2
 	fi
@@ -23,12 +24,13 @@ TARBALL=$1
 [ -z "$TARBALL" ] && usage
 [ -h = $TARBALL ] && usage MOAR
 shift
-while getopts b:f:p:c:d:h name; do
+while getopts b:f:p:c:d:i:h name; do
 	case "$name" in
 		b) BOOTSTRAP=$OPTARG;;
 		f) FLAGS=$OPTARG;;
 		p) PREFIX=$OPTARG;;
 		d) DESTDIR=$OPTARG;;
+		i) INSTALL=$OPTARG;;
 		c) COMMAND=$OPTARG;;
 		h) usage MOAR;;
 		*) usage;;
@@ -65,10 +67,11 @@ if [ -z "$COMMAND" ]; then
 		./configure $FLAGS --prefix=$(readlink -f $PREFIX)
 	fi
 	make
+	[ -z "$INSTALL"] && INSTALL=install
 	if [ -z "$DESTDIR" ]; then
-		make install
+		make $INSTALL
 	else
-		make install DESTDIR=$DESTDIR
+		make $INSTALL DESTDIR=$DESTDIR
 	fi
 else
 	eval $COMMAND
