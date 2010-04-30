@@ -67,7 +67,7 @@ if [ -z "$COMMAND" ]; then
 		./configure $FLAGS --prefix=$(readlink -f $PREFIX)
 	fi
 	make
-	[ -z "$INSTALL"] && INSTALL=install
+	[ -z "$INSTALL" ] && INSTALL=install
 	if [ -z "$DESTDIR" ]; then
 		make $INSTALL
 	else
