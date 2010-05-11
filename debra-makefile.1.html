@@ -1,41 +1,111 @@
-.\" generated with Ronn/v0.5
-.\" http://github.com/rtomayko/ronn/
-.
-.TH "DEBRA\-MAKEFILE" "1" "May 2010" "" ""
-.
-.SH "NAME"
-\fBdebra\-makefile\fR \-\- generate Makefiles for building packages with Debra
-.
-.SH "SYNOPSIS"
-\fBdebra\-makefile\fR [\fB\-p\fR \fIpackage\fR] [\fB\-a\fR \fIarchitecture\fR] [\fB\-h\fR]
-.
-.SH "DESCRIPTION"
-\fBdebra\-makefile\fR generates \fBMakefile.in\fR, \fBcontrol\fR, \fBinstall\-sh\fR, \fBconfigure.ac\fR, and \fB.gitignore\fR for incorporating \fBdebra\fR(1) into your project's build system.  The generated files are marked TODO in places that need your attention.
-.
-.P
-An existing \fBMakefile.in\fR will be appended to.  An existing \fBcontrol\fR file will be preserved.  An existing \fBconfigure.ac\fR will be preserved.  An existing \fB.gitignore\fR will be appended to.
-.
-.P
-If possible, your Git config will be used to populate name and email address fields.
-.
-.SH "OPTIONS"
-.
-.TP
-\fB\-p\fR \fIpackage\fR
-Package name.  Defaults to the name of the current directory.
-.
-.TP
-\fB\-a\fR \fIarchitecture\fR
-Architecture.  Defaults to "all".
-.
-.SH "THEME SONG"
-Beck \- "Debra"
-.
-.SH "AUTHOR"
-Richard Crowley \fIrichard@devstructure.com\fR
-.
-.SH "SEE ALSO"
-\fBdebra\-makefile\fR(1) is part of the Debra package.  Debra's source code is available at \fIhttp://github.com/devstructure/debra\fR.
-.
-.P
-\fBdebra\fR(1) provides a convenient way to create Debian packages.
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv='content-type' value='text/html;charset=utf8'>
+  <meta name='generator' value='Ronn/v0.5'>
+  <title>debra-makefile(1) -- generate Makefiles for building packages with Debra</title>
+  <style type='text/css'>
+    body {margin:0}
+    #man, #man code, #man pre, #man tt, #man kbd, #man samp {
+      font-family:consolas,monospace;
+      font-size:16px;
+      line-height:1.3;
+      color:#343331;
+      background:#fff; }
+    #man { max-width:89ex; text-align:justify; margin:0 25px 25px 25px }
+    #man h1, #man h2, #man h3 { color:#232221;clear:left }
+    #man h1 { font-size:28px; margin:15px 0 30px 0; text-align:center }
+    #man h2 { font-size:18px; margin-bottom:0; margin-top:10px; line-height:1.3; }
+    #man h3 { font-size:16px; margin:0 0 0 4ex; }
+    #man p, #man ul, #man ol, #man dl, #man pre { margin:0 0 18px 0; }
+    #man pre {
+      color:#333231;
+      background:#edeceb;
+      padding:5px 7px;
+      margin:0px 0 20px 0;
+      border-left:2ex solid #ddd}
+    #man pre + h2, #man pre + h3 {
+      margin-top:22px;
+    }
+    #man h2 + pre, #man h3 + pre {
+      margin-top:5px;
+    }
+    #man > p, #man > ul, #man > ol, #man > dl, #man > pre { margin-left:8ex; }
+    #man dt { margin:0; clear:left }
+    #man dt.flush { float:left; width:8ex }
+    #man dd { margin:0 0 0 9ex }
+    #man code, #man strong, #man b { font-weight:bold; color:#131211; }
+    #man pre code { font-weight:normal; color:#232221; background:inherit }
+    #man em, var, u {
+      font-style:normal; color:#333231; border-bottom:1px solid #999; }
+    #man h1.man-title { display:none; }
+    #man ol.man, #man ol.man li { margin:2px 0 10px 0; padding:0;
+      float:left; width:33%; list-style-type:none;
+      text-transform:uppercase; font-size:18px; color:#999;
+      letter-spacing:1px;}
+    #man ol.man { width:100%; }
+    #man ol.man li.tl { text-align:left }
+    #man ol.man li.tc { text-align:center;letter-spacing:4px }
+    #man ol.man li.tr { text-align:right }
+    #man ol.man a { color:#999 }
+    #man ol.man a:hover { color:#333231 }
+  </style>
+</head>
+<body>
+<div id='man'>
+
+<h1 class='man-title'>debra-makefile(1)</h1>
+
+<ol class='head man'>
+  <li class='tl'>debra-makefile(1)</li>
+  <li class='tc'></li>
+  <li class='tr'>debra-makefile(1)</li>
+</ol>
+
+<h2 id='NAME'>NAME</h2>
+<p><code>debra-makefile</code> -- generate Makefiles for building packages with Debra</p>
+
+<h2>SYNOPSIS</h2>
+
+<p><code>debra-makefile</code> [<code>-p</code> <em>package</em>] [<code>-a</code> <em>architecture</em>] [<code>-h</code>]</p>
+
+<h2>DESCRIPTION</h2>
+
+<p><code>debra-makefile</code> generates <code>Makefile.in</code>, <code>control</code>, <code>install-sh</code>, <code>configure.ac</code>, and <code>.gitignore</code> for incorporating <code>debra</code>(1) into your project's build system.  The generated files are marked TODO in places that need your attention.</p>
+
+<p>An existing <code>Makefile.in</code> will be appended to.  An existing <code>control</code> file will be preserved.  An existing <code>configure.ac</code> will be preserved.  An existing <code>.gitignore</code> will be appended to.</p>
+
+<p>If possible, your Git config will be used to populate name and email address fields.</p>
+
+<h2>OPTIONS</h2>
+
+<dl>
+<dt><code>-p</code> <em>package</em></dt><dd>Package name.  Defaults to the name of the current directory.</dd>
+<dt><code>-a</code> <em>architecture</em></dt><dd>Architecture.  Defaults to "all".</dd>
+</dl>
+
+
+<h2>THEME SONG</h2>
+
+<p>Beck - "Debra"</p>
+
+<h2>AUTHOR</h2>
+
+<p>Richard Crowley <a href="&#x6d;&#97;&#x69;&#x6c;&#x74;&#111;&#x3a;&#x72;&#105;&#99;&#x68;&#x61;&#114;&#100;&#64;&#100;&#x65;&#x76;&#115;&#116;&#114;&#117;&#99;&#x74;&#117;&#x72;&#x65;&#x2e;&#99;&#111;&#x6d;">&#x72;&#105;&#99;&#x68;&#97;&#114;&#100;&#x40;&#100;&#101;&#118;&#x73;&#x74;&#114;&#117;&#x63;&#x74;&#x75;&#x72;&#x65;&#x2e;&#x63;&#111;&#109;</a></p>
+
+<h2>SEE ALSO</h2>
+
+<p><code>debra-makefile</code>(1) is part of the Debra package.  Debra's source code is available at <a href="http://github.com/devstructure/debra">http://github.com/devstructure/debra</a>.</p>
+
+<p><code>debra</code>(1) provides a convenient way to create Debian packages.</p>
+
+
+<ol class='foot man'>
+  <li class='tl'></li>
+  <li class='tc'>May 2010</li>
+  <li class='tr'>debra-makefile(1)</li>
+</ol>
+
+</div>
+</body>
+</html>

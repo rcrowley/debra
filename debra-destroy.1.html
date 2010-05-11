@@ -1,48 +1,112 @@
-.\" generated with Ronn/v0.5
-.\" http://github.com/rtomayko/ronn/
-.
-.TH "DEBRA\-DESTROY" "1" "May 2010" "" ""
-.
-.SH "NAME"
-\fBdebra\-destroy\fR \-\- destroy a Debra directory
-.
-.SH "SYNOPSIS"
-\fBdebra destroy\fR \fIname\fR [\fB\-h\fR]
-.
-.SH "DESCRIPTION"
-\fBdebra\-destroy\fR destroys a Debra directory.  It is equivalent to the command
-.
-.IP "" 4
-.
-.nf
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv='content-type' value='text/html;charset=utf8'>
+  <meta name='generator' value='Ronn/v0.5'>
+  <title>debra-destroy(1) -- destroy a Debra directory</title>
+  <style type='text/css'>
+    body {margin:0}
+    #man, #man code, #man pre, #man tt, #man kbd, #man samp {
+      font-family:consolas,monospace;
+      font-size:16px;
+      line-height:1.3;
+      color:#343331;
+      background:#fff; }
+    #man { max-width:89ex; text-align:justify; margin:0 25px 25px 25px }
+    #man h1, #man h2, #man h3 { color:#232221;clear:left }
+    #man h1 { font-size:28px; margin:15px 0 30px 0; text-align:center }
+    #man h2 { font-size:18px; margin-bottom:0; margin-top:10px; line-height:1.3; }
+    #man h3 { font-size:16px; margin:0 0 0 4ex; }
+    #man p, #man ul, #man ol, #man dl, #man pre { margin:0 0 18px 0; }
+    #man pre {
+      color:#333231;
+      background:#edeceb;
+      padding:5px 7px;
+      margin:0px 0 20px 0;
+      border-left:2ex solid #ddd}
+    #man pre + h2, #man pre + h3 {
+      margin-top:22px;
+    }
+    #man h2 + pre, #man h3 + pre {
+      margin-top:5px;
+    }
+    #man > p, #man > ul, #man > ol, #man > dl, #man > pre { margin-left:8ex; }
+    #man dt { margin:0; clear:left }
+    #man dt.flush { float:left; width:8ex }
+    #man dd { margin:0 0 0 9ex }
+    #man code, #man strong, #man b { font-weight:bold; color:#131211; }
+    #man pre code { font-weight:normal; color:#232221; background:inherit }
+    #man em, var, u {
+      font-style:normal; color:#333231; border-bottom:1px solid #999; }
+    #man h1.man-title { display:none; }
+    #man ol.man, #man ol.man li { margin:2px 0 10px 0; padding:0;
+      float:left; width:33%; list-style-type:none;
+      text-transform:uppercase; font-size:18px; color:#999;
+      letter-spacing:1px;}
+    #man ol.man { width:100%; }
+    #man ol.man li.tl { text-align:left }
+    #man ol.man li.tc { text-align:center;letter-spacing:4px }
+    #man ol.man li.tr { text-align:right }
+    #man ol.man a { color:#999 }
+    #man ol.man a:hover { color:#333231 }
+  </style>
+</head>
+<body>
+<div id='man'>
 
-rm \-rf <name>
-.
-.fi
-.
-.IP "" 0
-.
-.P
-and is provided for convenience.
-.
-.SH "OPTIONS"
-.
-.TP
-\fIname\fR
-Name of a Debra directory.
-.
-.TP
-\fB\-h\fR, \fB\-\-help\fR
-Show a help message.
-.
-.SH "THEME SONG"
-Beck \- "Debra"
-.
-.SH "AUTHOR"
-Richard Crowley \fIrichard@devstructure.com\fR
-.
-.SH "SEE ALSO"
-Part of \fBdebra\fR(1).
-.
-.P
-\fBdebra\-create\fR(1), \fBdebra\-sourceinstall\fR(1), \fBdebra\-build\fR(1), \fBdebra\-destroy\fR(1), \fBdebra\-makefile\fR(1).
+<h1 class='man-title'>debra-destroy(1)</h1>
+
+<ol class='head man'>
+  <li class='tl'>debra-destroy(1)</li>
+  <li class='tc'></li>
+  <li class='tr'>debra-destroy(1)</li>
+</ol>
+
+<h2 id='NAME'>NAME</h2>
+<p><code>debra-destroy</code> -- destroy a Debra directory</p>
+
+<h2>SYNOPSIS</h2>
+
+<p><code>debra destroy</code> <em>name</em> [<code>-h</code>]</p>
+
+<h2>DESCRIPTION</h2>
+
+<p><code>debra-destroy</code> destroys a Debra directory.  It is equivalent to the command</p>
+
+<pre><code>rm -rf &lt;name>
+</code></pre>
+
+<p>and is provided for convenience.</p>
+
+<h2>OPTIONS</h2>
+
+<dl>
+<dt class="flush"><em>name</em></dt><dd>Name of a Debra directory.</dd>
+<dt><code>-h</code>, <code>--help</code></dt><dd>Show a help message.</dd>
+</dl>
+
+
+<h2>THEME SONG</h2>
+
+<p>Beck - "Debra"</p>
+
+<h2>AUTHOR</h2>
+
+<p>Richard Crowley <a href="&#x6d;&#x61;&#105;&#108;&#116;&#x6f;&#58;&#x72;&#x69;&#99;&#104;&#97;&#114;&#100;&#x40;&#x64;&#101;&#118;&#115;&#116;&#x72;&#117;&#99;&#x74;&#x75;&#x72;&#x65;&#46;&#99;&#111;&#109;">&#x72;&#x69;&#99;&#x68;&#x61;&#x72;&#x64;&#x40;&#100;&#x65;&#x76;&#115;&#x74;&#114;&#x75;&#99;&#116;&#x75;&#x72;&#101;&#x2e;&#x63;&#x6f;&#109;</a></p>
+
+<h2>SEE ALSO</h2>
+
+<p>Part of <code>debra</code>(1).</p>
+
+<p><code>debra-create</code>(1), <code>debra-sourceinstall</code>(1), <code>debra-build</code>(1), <code>debra-destroy</code>(1), <code>debra-makefile</code>(1).</p>
+
+
+<ol class='foot man'>
+  <li class='tl'></li>
+  <li class='tc'>May 2010</li>
+  <li class='tr'>debra-destroy(1)</li>
+</ol>
+
+</div>
+</body>
+</html>
