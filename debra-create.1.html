@@ -1,0 +1,45 @@
+.\" generated with Ronn/v0.5
+.\" http://github.com/rtomayko/ronn/
+.
+.TH "DEBRA\-CREATE" "1" "May 2010" "" ""
+.
+.SH "NAME"
+\fBdebra\-create\fR \-\- create a new Debra directory
+.
+.SH "SYNOPSIS"
+\fBdebra create\fR \fIname\fR [\fIcontrol\fR] [\fB\-h\fR]
+.
+.SH "DESCRIPTION"
+\fBdebra\-create\fR creates a new Debra directory containing the skeleton of what will become a Debian package when \fBdebra\-build\fR(1) is run.  \fBDEBIAN/control\fR contains package metadata.  The \fIcontrol\fR file will be used if provided, otherwise \fB$HOME/.debra\fR, otherwise a default which will need to be filled in.
+.
+.SH "OPTIONS"
+.
+.TP
+\fIname\fR
+Name of a Debra directory.
+.
+.TP
+[\fIcontrol\fR]
+Control file to use.
+.
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Show a help message.
+.
+.SH "FILES"
+.
+.TP
+\fB$HOME/.debra\fR
+The contents of \fB$HOME/.debra\fR will be used to initialize the \fBDEBIAN/control\fR file during the \fBcreate\fR action.
+.
+.SH "THEME SONG"
+Beck \- "Debra"
+.
+.SH "AUTHOR"
+Richard Crowley \fIrichard@devstructure.com\fR
+.
+.SH "SEE ALSO"
+Part of \fBdebra\fR(1).
+.
+.P
+\fBdebra\-create\fR(1), \fBdebra\-sourceinstall\fR(1), \fBdebra\-build\fR(1), \fBdebra\-destroy\fR(1), \fBdebra\-makefile\fR(1).

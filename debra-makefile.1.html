@@ -1,0 +1,41 @@
+.\" generated with Ronn/v0.5
+.\" http://github.com/rtomayko/ronn/
+.
+.TH "DEBRA\-MAKEFILE" "1" "May 2010" "" ""
+.
+.SH "NAME"
+\fBdebra\-makefile\fR \-\- generate Makefiles for building packages with Debra
+.
+.SH "SYNOPSIS"
+\fBdebra\-makefile\fR [\fB\-p\fR \fIpackage\fR] [\fB\-a\fR \fIarchitecture\fR] [\fB\-h\fR]
+.
+.SH "DESCRIPTION"
+\fBdebra\-makefile\fR generates \fBMakefile.in\fR, \fBcontrol\fR, \fBinstall\-sh\fR, \fBconfigure.ac\fR, and \fB.gitignore\fR for incorporating \fBdebra\fR(1) into your project's build system.  The generated files are marked TODO in places that need your attention.
+.
+.P
+An existing \fBMakefile.in\fR will be appended to.  An existing \fBcontrol\fR file will be preserved.  An existing \fBconfigure.ac\fR will be preserved.  An existing \fB.gitignore\fR will be appended to.
+.
+.P
+If possible, your Git config will be used to populate name and email address fields.
+.
+.SH "OPTIONS"
+.
+.TP
+\fB\-p\fR \fIpackage\fR
+Package name.  Defaults to the name of the current directory.
+.
+.TP
+\fB\-a\fR \fIarchitecture\fR
+Architecture.  Defaults to "all".
+.
+.SH "THEME SONG"
+Beck \- "Debra"
+.
+.SH "AUTHOR"
+Richard Crowley \fIrichard@devstructure.com\fR
+.
+.SH "SEE ALSO"
+\fBdebra\-makefile\fR(1) is part of the Debra package.  Debra's source code is available at \fIhttp://github.com/devstructure/debra\fR.
+.
+.P
+\fBdebra\fR(1) provides a convenient way to create Debian packages.

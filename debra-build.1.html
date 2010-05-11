@@ -1,0 +1,39 @@
+.\" generated with Ronn/v0.5
+.\" http://github.com/rtomayko/ronn/
+.
+.TH "DEBRA\-BUILD" "1" "May 2010" "" ""
+.
+.SH "NAME"
+\fBdebra\-build\fR \-\- build a Debian package
+.
+.SH "SYNOPSIS"
+\fBdebra build\fR \fIname\fR \fIdeb\fR [\fB\-h\fR]
+.
+.SH "DESCRIPTION"
+\fBdebra\-build\fR builds a Debian package from a Debra directory.  Before building the Debian package, it scans the Debra directory to correct shebang lines and other common problems, then it calculates the MD5 sum of each file and stores them in \fBDEBIAN/md5sums\fR.
+.
+.SH "OPTIONS"
+.
+.TP
+\fIname\fR
+Name of a Debra directory.
+.
+.TP
+\fIdeb\fR
+Debian package file to create.
+.
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Show a help message.
+.
+.SH "THEME SONG"
+Beck \- "Debra"
+.
+.SH "AUTHOR"
+Richard Crowley \fIrichard@devstructure.com\fR
+.
+.SH "SEE ALSO"
+Part of \fBdebra\fR(1).
+.
+.P
+\fBdebra\-create\fR(1), \fBdebra\-sourceinstall\fR(1), \fBdebra\-build\fR(1), \fBdebra\-destroy\fR(1), \fBdebra\-makefile\fR(1).

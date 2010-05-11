@@ -1,0 +1,50 @@
+.\" generated with Ronn/v0.5
+.\" http://github.com/rtomayko/ronn/
+.
+.TH "DEBRA\-SOURCEINSTALL" "1" "May 2010" "" ""
+.
+.SH "NAME"
+\fBdebra\-sourceinstall\fR \-\- install from a source tarball
+.
+.SH "SYNOPSIS"
+\fBdebra sourceinstall\fR \fIname\fR \fItarball\fR [\fB\-o\fR] [\fI...\fR] [\fB\-h\fR]
+.
+.SH "DESCRIPTION"
+\fBdebra\-sourceinstall\fR is a frontend to \fBsourceinstall\fR(1) that automatically sets \fIdestdir\fR such that the package will be installed in a Debra directory.  With \fB\-o\fR, the prefix is set to \fB/opt/$PACKAGE\fR where \fB$PACKAGE\fR is determined from the \fItarball\fR name.
+.
+.SH "OPTIONS"
+.
+.TP
+\fIname\fR
+Name of a Debra directory.
+.
+.TP
+\fItarball\fR
+Path or URI to a source tarball.
+.
+.TP
+\fB\-o\fR
+Set prefix based on tarball filename.
+.
+.TP
+[\fI...\fR]
+\fBsourceinstall\fR(1) arguments.
+.
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Show a help message.
+.
+.SH "THEME SONG"
+Beck \- "Debra"
+.
+.SH "AUTHOR"
+Richard Crowley \fIrichard@devstructure.com\fR
+.
+.SH "SEE ALSO"
+Part of \fBdebra\fR(1).
+.
+.P
+\fBdebra\-create\fR(1), \fBdebra\-sourceinstall\fR(1), \fBdebra\-build\fR(1), \fBdebra\-destroy\fR(1), \fBdebra\-makefile\fR(1).
+.
+.P
+\fBsourceinstall\fR(1) is a generic way to automate installation from tarballs.
