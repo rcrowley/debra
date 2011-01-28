@@ -1,8 +1,8 @@
-debra(1) http://rcrowley.github.com/debra/debra.1.html
-debra-build(1) http://rcrowley.github.com/debra/debra-build.1.html
-debra-create(1) http://rcrowley.github.com/debra/debra-create.1.html
-debra-destroy(1) http://rcrowley.github.com/debra/debra-destroy.1.html
-debra-sourceinstall(1) http://rcrowley.github.com/debra/debra-sourceinstall.1.html
-sourceinstall(1) http://rcrowley.github.com/debra/sourceinstall.1.html
+`debra`(1) http://rcrowley.github.com/debra/debra.1.html
+`debra-build`(1) http://rcrowley.github.com/debra/debra-build.1.html
+`debra-create`(1) http://rcrowley.github.com/debra/debra-create.1.html
+`debra-destroy`(1) http://rcrowley.github.com/debra/debra-destroy.1.html
+`debra-sourceinstall`(1) http://rcrowley.github.com/debra/debra-sourceinstall.1.html
+`sourceinstall`(1) http://rcrowley.github.com/debra/sourceinstall.1.html
 
-freight(1) http://rcrowley.github.com/freight/freight.1.html
+`freight`(1) http://rcrowley.github.com/freight/freight.1.html
