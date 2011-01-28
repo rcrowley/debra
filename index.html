@@ -1,133 +1,63 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta http-equiv='content-type' value='text/html;charset=utf8'>
-  <meta name='generator' value='Ronn/v0.5'>
-  <title>debra(1) -- build Debian packages</title>
-  <style type='text/css'>
-    body {margin:0}
-    #man, #man code, #man pre, #man tt, #man kbd, #man samp {
-      font-family:consolas,monospace;
-      font-size:16px;
-      line-height:1.3;
-      color:#343331;
-      background:#fff; }
-    #man { max-width:89ex; text-align:justify; margin:0 25px 25px 25px }
-    #man h1, #man h2, #man h3 { color:#232221;clear:left }
-    #man h1 { font-size:28px; margin:15px 0 30px 0; text-align:center }
-    #man h2 { font-size:18px; margin-bottom:0; margin-top:10px; line-height:1.3; }
-    #man h3 { font-size:16px; margin:0 0 0 4ex; }
-    #man p, #man ul, #man ol, #man dl, #man pre { margin:0 0 18px 0; }
-    #man pre {
-      color:#333231;
-      background:#edeceb;
-      padding:5px 7px;
-      margin:0px 0 20px 0;
-      border-left:2ex solid #ddd}
-    #man pre + h2, #man pre + h3 {
-      margin-top:22px;
-    }
-    #man h2 + pre, #man h3 + pre {
-      margin-top:5px;
-    }
-    #man > p, #man > ul, #man > ol, #man > dl, #man > pre { margin-left:8ex; }
-    #man dt { margin:0; clear:left }
-    #man dt.flush { float:left; width:8ex }
-    #man dd { margin:0 0 0 9ex }
-    #man code, #man strong, #man b { font-weight:bold; color:#131211; }
-    #man pre code { font-weight:normal; color:#232221; background:inherit }
-    #man em, var, u {
-      font-style:normal; color:#333231; border-bottom:1px solid #999; }
-    #man h1.man-title { display:none; }
-    #man ol.man, #man ol.man li { margin:2px 0 10px 0; padding:0;
-      float:left; width:33%; list-style-type:none;
-      text-transform:uppercase; font-size:18px; color:#999;
-      letter-spacing:1px;}
-    #man ol.man { width:100%; }
-    #man ol.man li.tl { text-align:left }
-    #man ol.man li.tc { text-align:center;letter-spacing:4px }
-    #man ol.man li.tr { text-align:right }
-    #man ol.man a { color:#999 }
-    #man ol.man a:hover { color:#333231 }
-  </style>
+<meta charset="utf-8">
+<title>Debra</title>
+<style type="text/css">
+html { text-align: center; }
+body {
+	font-size: 16px;
+	margin: 0 auto;
+	text-align: left;
+	width: 80%;
+}
+body, h1, h2, h3, h4, h5, h6 { font-family: "Helvetica Neue", Helvetica, sans-serif; }
+a, a:link, a:hover, a:active, a:visited { color: #0040c5; }
+p, pre {
+	margin: 1.5em 0;
+	line-height: 1.5em;
+}
+h1 {
+	margin: 1em 0;
+	font-size: 1.5em;
+	line-height: 1em;
+}
+ul, ol, dl {
+	margin: 1.5em 0;
+	padding: 0;
+}
+ul, ol { margin-left: 1.5em; }
+li, dt, dd {
+	margin: 0;
+	font-size: 1em;
+	line-height: 1.5em;
+}
+dd { margin: 0 0 0 1.5em; }
+header { text-align: center; }
+footer {
+	background: url(logo.png) no-repeat center bottom;
+	padding-bottom: 136px;
+	margin-bottom: 1.5em;
+	text-align: center;
+}
+</style>
 </head>
 <body>
-<div id='man'>
-
-<h1 class='man-title'>debra(1)</h1>
-
-<ol class='head man'>
-  <li class='tl'>debra(1)</li>
-  <li class='tc'></li>
-  <li class='tr'>debra(1)</li>
-</ol>
-
-<h2 id='NAME'>NAME</h2>
-<p><code>debra</code> -- build Debian packages</p>
-
-<h2>SYNOPSIS</h2>
-
-<p><code>debra</code> [<em>command</em>] [<em>...</em>]</p>
-
-<h2>DESCRIPTION</h2>
-
-<p><code>debra</code> programs are used to build Debian packages in a fairly sane manner.</p>
-
-<dl>
-<dt><code>debra-create</code>(1)</dt><dd>Create a new Debra directory.</dd>
-<dt><code>debra-sourceinstall</code>(1)</dt><dd>Install from a source tarball.</dd>
-<dt><code>debra-build</code>(1)</dt><dd>Build a Debian package.</dd>
-<dt><code>debra-destroy</code>(1)</dt><dd>Destroy a Debra directory.</dd>
-<dt><code>debra-makefile</code>(1)</dt><dd>Generate Makefiles for building packages with Debra.</dd>
-<dt><code>sourceinstall</code>(1)</dt><dd>Install from a source tarball.</dd>
-</dl>
-
-
-<h2>EXAMPLES</h2>
-
-<p><code>debra-makefile</code> generates <code>Makefile.in</code>, <code>control</code>, <code>install-sh</code>, <code>configure.ac</code>, and <code>.gitignore</code> with installation and package building targets.</p>
-
-<p>Using <code>debra-makefile</code>, Debra can build a Debian package for itself.  This example shows how you can use <code>reprepro</code>(1) to publish the newly-built Debian package to a local Debian archive and install it through <code>apt-get</code>(8).</p>
-
-<pre><code>./configure
-make deb
-reprepro -b /var/packages/ubuntu includedeb karmic debra_*_all.deb
-apt-get update
-apt-get install debra
-</code></pre>
-
-<p><code>make deb</code> calls <code>git-archive</code>(1), <code>debra create</code>, <code>debra sourceinstall</code>, <code>debra build</code> and <code>debra destroy</code>.</p>
-
-<h2>FILES</h2>
-
-<dl>
-<dt><code>$HOME/.debra</code></dt><dd>The contents of <code>$HOME/.debra</code> is used by <code>debra-create</code>(1) to initialize the <code>DEBIAN/control</code> file.</dd>
-</dl>
-
-
-<h2>THEME SONG</h2>
-
-<p>Beck - "Debra"</p>
-
-<h2>AUTHOR</h2>
-
-<p>Richard Crowley <a href="&#109;&#x61;&#105;&#x6c;&#116;&#x6f;&#58;&#x72;&#x69;&#x63;&#x68;&#x61;&#x72;&#100;&#64;&#x64;&#x65;&#x76;&#x73;&#x74;&#x72;&#117;&#x63;&#x74;&#x75;&#114;&#101;&#x2e;&#99;&#x6f;&#109;">&#114;&#105;&#x63;&#104;&#x61;&#114;&#100;&#64;&#x64;&#x65;&#x76;&#115;&#116;&#114;&#117;&#99;&#x74;&#117;&#x72;&#x65;&#x2e;&#99;&#111;&#109;</a></p>
-
-<h2>SEE ALSO</h2>
-
-<p><code>debra-create</code>(1), <code>debra-sourceinstall</code>(1), <code>debra-build</code>(1), <code>debra-destroy</code>(1), <code>debra-makefile</code>(1).</p>
-
-<p><code>sourceinstall</code>(1) is a generic way to automate installation from tarballs.</p>
-
-<p><code>reprepro</code>(1) plus your favorite HTTP server can together manage a Debian archive to serve the packages built by <code>debra</code>(1).</p>
-
-
-<ol class='foot man'>
-  <li class='tl'></li>
-  <li class='tc'>May 2010</li>
-  <li class='tr'>debra(1)</li>
-</ol>
-
-</div>
+<header>
+	<h1>Debra</h1>
+	<p>Tools for building Debian packages</p>
+</header>
+<section>
+	<h1>Installation</h1>
+</section>
+<section>
+	<h1>Manuals</h1>
+	<ul>
+	</ul>
+</section>
+<p><a href="https://github.com/rcrowley/debra">Source code</a></p>
+<footer>
+	<p>&copy; 2011 <a href="http://rcrowley.org/">Richard Crowley</a>.&nbsp; <a href="https://github.com/rcrowley/debra/blob/master/LICENSE"><code>LICENSE</code></a></p>
+</footer>
 </body>
 </html>
