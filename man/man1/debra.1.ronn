@@ -1,0 +1,42 @@
+debra(1) -- build Debian packages
+=================================
+
+## SYNOPSIS
+
+`debra` [_command_] [_..._]  
+
+## DESCRIPTION
+
+`debra` programs are used to build Debian packages in a fairly sane manner.
+
+* `debra-create`(1):
+  Create a new Debra directory.
+* `debra-sourceinstall`(1):
+  Install from a source tarball.
+* `debra-build`(1):
+  Build a Debian package.
+* `debra-destroy`(1):
+  Destroy a Debra directory.
+* `sourceinstall`(1):
+  Install from a source tarball.
+
+## FILES
+
+* `$HOME/.debra`:
+  The contents of `$HOME/.debra` is used by `debra-create`(1) to initialize the `DEBIAN/control` file.
+
+## THEME SONG
+
+Beck - "Debra"
+
+## AUTHOR
+
+Richard Crowley <richard@devstructure.com>
+
+## SEE ALSO
+
+`debra-create`(1), `debra-sourceinstall`(1), `debra-build`(1), and `debra-destroy`(1).
+
+`sourceinstall`(1) is a generic way to automate installation from tarballs.
+
+`freight`(1) plus your favorite HTTP server can together manage a Debian archive to serve the packages built by `debra`(1).

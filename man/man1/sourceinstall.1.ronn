@@ -32,7 +32,7 @@ Options may be set multiple times.  In all cases, the last one wins.
 
 ## AUTHOR
 
-Richard Crowley <richard@devstructure.com>
+Richard Crowley <r@rcrowley.org>
 
 ## SEE ALSO
 

@@ -28,12 +28,10 @@ Beck - "Debra"
 
 ## AUTHOR
 
-Richard Crowley <richard@devstructure.com>
+Richard Crowley <r@rcrowley.org>
 
 ## SEE ALSO
 
 Part of `debra`(1).
-
-`debra-create`(1), `debra-sourceinstall`(1), `debra-build`(1), `debra-destroy`(1), `debra-makefile`(1).
 
 `sourceinstall`(1) is a generic way to automate installation from tarballs.

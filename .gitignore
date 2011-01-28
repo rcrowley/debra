@@ -1,7 +1,5 @@
 *.swp
-autoscan.log
-configure.scan
-autom4te.cache
-config.log
-config.status
-Makefile
+*.[12345678]
+*.html
+*.deb
+control

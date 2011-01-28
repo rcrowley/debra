@@ -1,5 +1,0 @@
-9a10,13
-> AC_PROG_GREP
-> AC_PATH_PROG([DEBRA], [debra])
-> AC_PATH_PROG([GIT], [git])
-> AC_PATH_PROG([GZIP], [gzip])
