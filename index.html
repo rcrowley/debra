@@ -49,10 +49,23 @@ footer {
 </header>
 <section>
 	<h1>Installation</h1>
+	<p>Clone and <code>make install</code> or install from DevStructure&#8217;s Debian archive:</p>
+	<pre>sudo tee /etc/apt/sources.list.d/devstructure.list &lt;&lt;EOF
+deb http://packages.devstructure.com/ maverick main
+EOF
+wget -O - http://packages.devstructure.com/keyring.gpg | sudo apt-key add -
+sudo apt-get update
+sudo apt-get -y install debra</pre>
 </section>
 <section>
 	<h1>Manuals</h1>
 	<ul>
+		<li><a href="debra.1.html"><code>debra</code>(1)</a></li>
+		<li><a href="debra-build.1.html"><code>debra-build</code>(1)</a></li>
+		<li><a href="debra-create.1.html"><code>debra-create</code>(1)</a></li>
+		<li><a href="debra-destroy.1.html"><code>debra-destroy</code>(1)</a></li>
+		<li><a href="debra-sourceinstall.1.html"><code>debra-sourceinstall</code>(1)</a></li>
+		<li><a href="sourceinstall.1.html"><code>sourceinstall</code>(1)</a></li>
 	</ul>
 </section>
 <p><a href="https://github.com/rcrowley/debra">Source code</a></p>
