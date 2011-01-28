@@ -1,4 +1,4 @@
-VERSION=0.2.7-1
+VERSION=0.2.8-1
 
 prefix=/usr/local
 bindir=${prefix}/bin
@@ -38,6 +38,10 @@ deb:
 	bin/debra build debian debra_$(VERSION)_all.deb
 	bin/debra destroy debian
 
+deploy:
+	scp -i ~/production.pem debra_$(VERSION)_all.deb ubuntu@packages.devstructure.com:
+	ssh -i ~/production.pem -t ubuntu@packages.devstructure.com "sudo freight add debra_$(VERSION)_all.deb apt/lucid apt/maverick && rm debra_$(VERSION)_all.deb && sudo freight cache apt/lucid apt/maverick"
+
 man:
 	find man -name \*.ronn | xargs -n1 ronn --manual=Debra --style=toc
 
@@ -52,4 +56,4 @@ gh-pages: man
 	git push origin gh-pages
 	git checkout -q master
 
-.PHONY: all install uninstall deb man gh-pages
+.PHONY: all install uninstall deb deploy man gh-pages
