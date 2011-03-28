@@ -41,7 +41,7 @@ rm -f $DIRNAME/DEBIAN/md5sums
 for PATHNAME in $(
 	find $DIRNAME -type f -not -path $DIRNAME/DEBIAN/\* -printf %P\\n
 ); do
-	md5sum debian/$PATHNAME | awk "{print \$1,\"\",\"$PATHNAME\"}" \
+	md5sum $DIRNAME/$PATHNAME | awk "{print \$1,\"\",\"$PATHNAME\"}" \
 		>>$DIRNAME/DEBIAN/md5sums
 done
 
