@@ -1,4 +1,5 @@
-VERSION=0.2.9-2
+VERSION=0.2.9
+BUILD=2
 
 prefix=/usr/local
 bindir=${prefix}/bin
@@ -31,16 +32,16 @@ uninstall:
 
 deb:
 	[ "$$(whoami)" = "root" ] || false
-	m4 -D__VERSION__=$(VERSION) control.m4 >control
+	m4 -D__VERSION__=$(VERSION)-$(BUILD) control.m4 >control
 	bin/debra create debian control
 	make install DESTDIR=debian prefix=/usr
 	chown -R root:root debian
-	bin/debra build debian debra_$(VERSION)_all.deb
+	bin/debra build debian debra_$(VERSION)-$(BUILD)_all.deb
 	bin/debra destroy debian
 
 deploy:
-	scp -i ~/production.pem debra_$(VERSION)_all.deb ubuntu@packages.devstructure.com:
-	ssh -i ~/production.pem -t ubuntu@packages.devstructure.com "sudo freight add debra_$(VERSION)_all.deb apt/lucid apt/maverick && rm debra_$(VERSION)_all.deb && sudo freight cache apt/lucid apt/maverick"
+	scp -i ~/production.pem debra_$(VERSION)-$(BUILD)_all.deb ubuntu@packages.devstructure.com:
+	ssh -i ~/production.pem -t ubuntu@packages.devstructure.com "sudo freight add debra_$(VERSION)-$(BUILD)_all.deb apt/lenny apt/squeeze apt/lucid apt/maverick apt/natty && rm debra_$(VERSION)-$(BUILD)_all.deb && sudo freight cache apt/lenny apt/squeeze apt/lucid apt/maverick apt/natty"
 
 man:
 	find man -name \*.ronn | xargs -n1 ronn --manual=Debra --style=toc
