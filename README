@@ -5,3 +5,5 @@ Tools for building Debian packages.
 
 * Source on GitHub: <https://github.com/rcrowley/debra>
 * Documentation: <http://rcrowley.github.com/debra/>
+
+This tool is no longer maintained.  I recommend using FPM instead: <https://github.com/jordansissel/fpm>.
